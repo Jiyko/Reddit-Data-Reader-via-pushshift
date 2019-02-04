@@ -17,6 +17,7 @@ Public Class Form1
         Dim sDate As Date
         Dim eDate As Date
 
+        Dim filterWords = New String() {"removed", "https", "remove", "http", "I am a bot"}
 
         Dim bodyTracker As String
 
@@ -150,6 +151,11 @@ Public Class Form1
                     Do While Not sInnerLine Is Nothing
                         j += 1
 
+                        For Each bob In filterWords
+                            If sInnerLine.Contains(bob) Then
+
+                            End If
+                        Next
 
                         If sInnerLine.Contains("body") Then
 

@@ -90,10 +90,10 @@ Partial Class Form1
         '
         'MainText
         '
-        Me.MainText.Location = New System.Drawing.Point(12, 228)
+        Me.MainText.Location = New System.Drawing.Point(12, 146)
         Me.MainText.Name = "MainText"
         Me.MainText.ReadOnly = True
-        Me.MainText.Size = New System.Drawing.Size(417, 108)
+        Me.MainText.Size = New System.Drawing.Size(417, 190)
         Me.MainText.TabIndex = 6
         Me.MainText.Text = ""
         '

@@ -35,10 +35,14 @@ Partial Class Form1
         Me.FileNameBox = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.NumberToCheck = New System.Windows.Forms.TextBox()
-        Me.FileSystemWatcher1 = New System.IO.FileSystemWatcher()
-        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.Button2 = New System.Windows.Forms.Button()
-        CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.minWordCount = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.minPostNumber = New System.Windows.Forms.TextBox()
+        Me.Weekly = New System.Windows.Forms.CheckBox()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'SubReddit
@@ -61,18 +65,18 @@ Partial Class Form1
         'Button1
         '
         Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!)
-        Me.Button1.Location = New System.Drawing.Point(12, 333)
+        Me.Button1.Location = New System.Drawing.Point(12, 371)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(203, 105)
+        Me.Button1.Size = New System.Drawing.Size(417, 105)
         Me.Button1.TabIndex = 2
         Me.Button1.Text = "Do The Thing"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'ProgressBar1
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(12, 304)
+        Me.ProgressBar1.Location = New System.Drawing.Point(12, 342)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(203, 23)
+        Me.ProgressBar1.Size = New System.Drawing.Size(417, 23)
         Me.ProgressBar1.TabIndex = 3
         '
         'Label2
@@ -86,10 +90,10 @@ Partial Class Form1
         '
         'MainText
         '
-        Me.MainText.Location = New System.Drawing.Point(12, 190)
+        Me.MainText.Location = New System.Drawing.Point(12, 228)
         Me.MainText.Name = "MainText"
         Me.MainText.ReadOnly = True
-        Me.MainText.Size = New System.Drawing.Size(203, 108)
+        Me.MainText.Size = New System.Drawing.Size(417, 108)
         Me.MainText.TabIndex = 6
         Me.MainText.Text = ""
         '
@@ -97,13 +101,13 @@ Partial Class Form1
         '
         Me.StartDate.Location = New System.Drawing.Point(12, 119)
         Me.StartDate.Name = "StartDate"
-        Me.StartDate.Size = New System.Drawing.Size(203, 20)
+        Me.StartDate.Size = New System.Drawing.Size(100, 20)
         Me.StartDate.TabIndex = 7
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 142)
+        Me.Label3.Location = New System.Drawing.Point(163, 103)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(52, 13)
         Me.Label3.TabIndex = 8
@@ -111,15 +115,15 @@ Partial Class Form1
         '
         'EndDate
         '
-        Me.EndDate.Location = New System.Drawing.Point(12, 158)
+        Me.EndDate.Location = New System.Drawing.Point(118, 119)
         Me.EndDate.Name = "EndDate"
-        Me.EndDate.Size = New System.Drawing.Size(203, 20)
+        Me.EndDate.Size = New System.Drawing.Size(97, 20)
         Me.EndDate.TabIndex = 9
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(130, 59)
+        Me.Label4.Location = New System.Drawing.Point(128, 58)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(92, 13)
         Me.Label4.TabIndex = 11
@@ -127,7 +131,7 @@ Partial Class Form1
         '
         'FileNameBox
         '
-        Me.FileNameBox.Location = New System.Drawing.Point(130, 79)
+        Me.FileNameBox.Location = New System.Drawing.Point(130, 76)
         Me.FileNameBox.Name = "FileNameBox"
         Me.FileNameBox.Size = New System.Drawing.Size(85, 20)
         Me.FileNameBox.TabIndex = 10
@@ -150,29 +154,77 @@ Partial Class Form1
         Me.NumberToCheck.TabIndex = 12
         Me.NumberToCheck.Text = "300"
         '
-        'FileSystemWatcher1
-        '
-        Me.FileSystemWatcher1.EnableRaisingEvents = True
-        Me.FileSystemWatcher1.SynchronizingObject = Me
-        '
-        'OpenFileDialog1
-        '
-        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
-        '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(12, 56)
+        Me.Button2.Location = New System.Drawing.Point(12, 59)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(112, 44)
+        Me.Button2.Size = New System.Drawing.Size(112, 41)
         Me.Button2.TabIndex = 14
         Me.Button2.Text = "Select File Location"
         Me.Button2.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.Label7)
+        Me.GroupBox1.Controls.Add(Me.minWordCount)
+        Me.GroupBox1.Controls.Add(Me.Label6)
+        Me.GroupBox1.Controls.Add(Me.minPostNumber)
+        Me.GroupBox1.Location = New System.Drawing.Point(237, 13)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(192, 109)
+        Me.GroupBox1.TabIndex = 15
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Privacy Restrictions"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(6, 61)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(108, 13)
+        Me.Label7.TabIndex = 18
+        Me.Label7.Text = "Minimum Word Count"
+        '
+        'minWordCount
+        '
+        Me.minWordCount.Location = New System.Drawing.Point(7, 79)
+        Me.minWordCount.Name = "minWordCount"
+        Me.minWordCount.Size = New System.Drawing.Size(179, 20)
+        Me.minWordCount.TabIndex = 17
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(6, 20)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(99, 13)
+        Me.Label6.TabIndex = 16
+        Me.Label6.Text = "Minimum # of Posts"
+        '
+        'minPostNumber
+        '
+        Me.minPostNumber.Location = New System.Drawing.Point(7, 38)
+        Me.minPostNumber.Name = "minPostNumber"
+        Me.minPostNumber.Size = New System.Drawing.Size(179, 20)
+        Me.minPostNumber.TabIndex = 0
+        '
+        'Weekly
+        '
+        Me.Weekly.AutoSize = True
+        Me.Weekly.Location = New System.Drawing.Point(246, 123)
+        Me.Weekly.Name = "Weekly"
+        Me.Weekly.Size = New System.Drawing.Size(158, 17)
+        Me.Weekly.TabIndex = 16
+        Me.Weekly.Text = "Create seperate weekly files"
+        Me.Weekly.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(224, 448)
+        Me.ClientSize = New System.Drawing.Size(441, 488)
+        Me.Controls.Add(Me.Weekly)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.NumberToCheck)
@@ -189,7 +241,8 @@ Partial Class Form1
         Me.Controls.Add(Me.SubReddit)
         Me.Name = "Form1"
         Me.Text = "MRG"
-        CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -208,7 +261,11 @@ Partial Class Form1
     Friend WithEvents FileNameBox As TextBox
     Friend WithEvents Label5 As Label
     Friend WithEvents NumberToCheck As TextBox
-    Friend WithEvents FileSystemWatcher1 As IO.FileSystemWatcher
     Friend WithEvents Button2 As Button
-    Friend WithEvents OpenFileDialog1 As OpenFileDialog
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents minPostNumber As TextBox
+    Friend WithEvents Label7 As Label
+    Friend WithEvents minWordCount As TextBox
+    Friend WithEvents Weekly As CheckBox
 End Class

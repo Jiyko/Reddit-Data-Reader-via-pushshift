@@ -100,24 +100,11 @@ Public Class Form1
             FirstRunURL = sURL + FinalStartDate + FinalEndDate + FinalSize + FinalTags
             SecondRunURL = sURL + FinalStartDate + FinalEndDate + FinalSize + "&filter=body&&author="
 
-            MainText.Text = MainText.Text + FirstRunURL
+            Dim objReader = OpenStream(FirstRunURL)
 
-            Dim wrGETURL As WebRequest
-            wrGETURL = WebRequest.Create(FirstRunURL)
-
-            Dim objStream As Stream
-            objStream = wrGETURL.GetResponse.GetResponseStream()
-
-            Dim objReader As New StreamReader(objStream)
 
             Dim sLine As String = ""
             Dim i As Integer = 0
-
-
-
-            Dim wrGEInnerURL As WebRequest
-
-            Dim objInnerStream As Stream
 
             Dim sInnerLine As String = ""
             Dim j As Integer = 0
@@ -141,10 +128,8 @@ Public Class Form1
                         Console.WriteLine(sLine)
 
                         Final = SecondRunURL + sLine
-                        wrGEInnerURL = WebRequest.Create(Final)
-                        objInnerStream = wrGEInnerURL.GetResponse.GetResponseStream()
 
-                        Dim objInnerReader As New StreamReader(objInnerStream)
+                        Dim objInnerReader = OpenStream(Final)
 
                         sInnerLine = ""
                         j = 0
@@ -189,8 +174,9 @@ Public Class Form1
                             sInnerLine = objInnerReader.ReadLine
 
                         Loop
-                        If k >= 3 Then
-                            If bodyTracker.Length >= 750 Then
+                        'checks the user validity 
+                        If k >= Convert.ToInt32(minPostNumber.Text) Then
+                            If bodyTracker.Split(" ").Length - 1 >= Convert.ToInt32(minWordCount.Text) Then
                                 file.WriteLine(bodyTracker)
                                 ValidPoster = ValidPoster + 1
                                 ValidLines = ValidLines + k
@@ -255,7 +241,46 @@ Public Class Form1
             Console.WriteLine("Fail")
         End If
 
+        'Check the minPostNumberLenght 
+        If minPostNumber.TextLength = 0 Then
+            DataValid = False
+            Console.WriteLine("Fail")
+        End If
+
+        'Check the minPostNumberLenght 
+        If minWordCount.TextLength = 0 Then
+            DataValid = False
+            Console.WriteLine("Fail")
+        End If
+
         DataIsValid = DataValid
+    End Function
+
+    Function OpenStream(ByVal wantedURI As String) As StreamReader
+
+        Try
+            Convert.ToInt32(minPostNumber.Text)
+
+            MainText.Text = MainText.Text + "Calling - " + wantedURI + vbNewLine
+
+            'Invoke the web request
+            Dim wrGETURL As WebRequest
+            wrGETURL = WebRequest.Create(wantedURI)
+
+            'Read the Stream
+            Dim objStream As Stream
+            objStream = wrGETURL.GetResponse.GetResponseStream()
+
+            'Put it in a reader
+            Dim objReader As New StreamReader(objStream)
+            OpenStream = objReader
+
+        Catch ex As Exception
+
+            MsgBox("Networking Broke")
+
+        End Try
+
     End Function
 
 End Class

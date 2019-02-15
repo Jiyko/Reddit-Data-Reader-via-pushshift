@@ -3,6 +3,9 @@ Imports System.Net
 Imports System.IO
 
 Public Class Form1
+
+    Dim rootPath As String
+
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         'Check to see if the text is validated.... poorly
@@ -23,12 +26,36 @@ Public Class Form1
 
             Dim filterWords = New String() {"removed", "https", "remove", "http", "I am a bot"}
 
+            Dim startWindowUTC = (StartDate.Value() - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
+            Dim endWindowUTC = (EndDate.Value() - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
+
+
+            Dim hashedUserList As New List(Of String)
+
+            Dim twoWeekUTC As Double
+            twoWeekUTC = 1209600
+            Dim oneWeekUTC As Double
+            oneWeekUTC = 604800
+
+
+            Dim list As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
+            list.Add(New KeyValuePair(Of String, String)("dot", "Test"))
+
+
+            Console.WriteLine("Fail".GetHashCode())
+            Console.WriteLine("Fail".GetHashCode())
+
+
+
             Dim bodyTracker As String
 
             Dim FinalStartDate As String
             Dim FinalEndDate As String
             Dim FinalSize As String
             Dim FinalTags As String
+
+            Dim validLine As Boolean
+
 
             Dim FinalBodyTags As String
 
@@ -39,12 +66,12 @@ Public Class Form1
 
             'Declare the IO Stuff
             Dim file As System.IO.StreamWriter
-            file = My.Computer.FileSystem.OpenTextFileWriter("D:\RedditRips\Test\" + FileNameBox.Text() + ".txt", True)
+            file = My.Computer.FileSystem.OpenTextFileWriter(rootPath + "\" + FileNameBox.Text() + ".txt", True)
 
 
             'Get the latest stats
             Dim statsFile As System.IO.StreamReader
-            statsFile = My.Computer.FileSystem.OpenTextFileReader("D:\RedditRips\Test\" + FileNameBox.Text() + "Stats.txt")
+            statsFile = My.Computer.FileSystem.OpenTextFileReader(rootPath + "\" + FileNameBox.Text() + "Stats.txt")
             ValidLines = Convert.ToInt32(statsFile.ReadLine())
             TotalLines = Convert.ToInt32(statsFile.ReadLine())
             ValidPoster = Convert.ToInt32(statsFile.ReadLine())
@@ -53,7 +80,7 @@ Public Class Form1
             statsFile.Close()
 
             Dim statsFileW As System.IO.StreamWriter
-            statsFileW = My.Computer.FileSystem.OpenTextFileWriter("D:\RedditRips\Test\" + FileNameBox.Text() + "Stats.txt", False)
+            statsFileW = My.Computer.FileSystem.OpenTextFileWriter(rootPath + "\" + FileNameBox.Text() + "Stats.txt", False)
 
             sURL = "https://api.pushshift.io/reddit/search/comment/?subreddit="
             sURL = sURL + (SubReddit.Text())
@@ -98,7 +125,7 @@ Public Class Form1
             FinalBodyTags = "&filter=body"
 
             FirstRunURL = sURL + FinalStartDate + FinalEndDate + FinalSize + FinalTags
-            SecondRunURL = sURL + FinalStartDate + FinalEndDate + FinalSize + "&filter=body&&author="
+            SecondRunURL = sURL + FinalStartDate + FinalEndDate + "&filter=body,created_utc&&author="
 
             Dim objReader = OpenStream(FirstRunURL)
 
@@ -117,8 +144,6 @@ Public Class Form1
                 If Not sLine Is Nothing Then
 
                     If sLine.Contains("author") Then
-                        TotalPoster = TotalPoster + 1
-                        ProgressBar1.Value = ProgressBar1.Value + 1
 
                         Console.WriteLine("{0}:{1}", i, sLine)
 
@@ -127,62 +152,76 @@ Public Class Form1
 
                         Console.WriteLine(sLine)
 
-                        Final = SecondRunURL + sLine
+                        sLine.GetHashCode()
+                        If Not hashedUserList.Contains(sLine.GetHashCode()) Then
 
-                        Dim objInnerReader = OpenStream(Final)
 
-                        sInnerLine = ""
-                        j = 0
-                        k = 0
+                            Final = SecondRunURL + sLine
 
-                        bodyTracker = ""
 
-                        Do While Not sInnerLine Is Nothing
-                            j += 1
+                            TotalPoster = TotalPoster + 1
+                            ProgressBar1.Value = ProgressBar1.Value + 1
 
-                            For Each bob In filterWords
-                                If sInnerLine.Contains(bob) Then
+                            Dim objInnerReader = OpenStream(Final)
 
-                                End If
-                            Next
+                            sInnerLine = ""
+                            j = 0
+                            k = 0
 
-                            If sInnerLine.Contains("body") Then
-
-                                If Not sInnerLine.Contains("https") Then
-
-                                    If Not sInnerLine.Contains("removed") Then
-
-                                        If Not sInnerLine.Contains("I am a bot") Then
-
-                                            If Not sInnerLine.Contains("remove") Then
-                                                sInnerLine = sInnerLine.Remove((sInnerLine.Length) - 1)
-                                                sInnerLine = sInnerLine.Substring(21)
-                                                sInnerLine.Trim()
-
-                                                Console.WriteLine(sInnerLine)
-                                                bodyTracker = bodyTracker + vbCrLf + sInnerLine
-
-                                                TotalLines = TotalLines + 1
-                                                k += 1
-                                            End If
-                                        End If
-                                    End If
-                                End If
-                            End If
-
+                            bodyTracker = ""
 
                             sInnerLine = objInnerReader.ReadLine
+                            Do While Not sInnerLine Is Nothing
 
-                        Loop
-                        'checks the user validity 
-                        If k >= Convert.ToInt32(minPostNumber.Text) Then
-                            If bodyTracker.Split(" ").Length - 1 >= Convert.ToInt32(minWordCount.Text) Then
-                                file.WriteLine(bodyTracker)
-                                ValidPoster = ValidPoster + 1
-                                ValidLines = ValidLines + k
+                                If Not sInnerLine.Equals("") Then
+                                    j += 1
+
+                                    'check to see if the line contains any words from the filter list
+                                    validLine = True
+
+                                    For Each bob In filterWords
+                                        If sInnerLine.Contains(bob) Then
+
+                                            validLine = False
+
+                                        End If
+                                    Next
+
+                                    'check to see if the line contains any words from the filter list
+                                    If validLine Then
+                                        If sInnerLine.Contains("body") Then
+
+                                            sInnerLine = sInnerLine.Remove((sInnerLine.Length) - 1)
+                                            sInnerLine = sInnerLine.Substring(21)
+                                            sInnerLine.Trim()
+
+                                            Console.WriteLine(sInnerLine)
+                                            bodyTracker = bodyTracker + vbCrLf + sInnerLine
+
+                                            TotalLines = TotalLines + 1
+                                            k += 1
+                                        End If
+                                    End If
+
+                                End If
+
+                                sInnerLine = objInnerReader.ReadLine
+
+                            Loop
+
+                            hashedUserList.Add(sLine.GetHashCode())
+
+                            'checks the user validity 
+                            If k >= Convert.ToInt32(minPostNumber.Text) Then
+                                If bodyTracker.Split(" ").Length - 1 >= Convert.ToInt32(minWordCount.Text) Then
+                                    file.WriteLine(bodyTracker)
+                                    ValidPoster = ValidPoster + 1
+                                    ValidLines = ValidLines + k
+                                End If
                             End If
                         End If
                     End If
+
                 End If
             Loop
 
@@ -253,6 +292,13 @@ Public Class Form1
             Console.WriteLine("Fail")
         End If
 
+        'make sure the root has been selected
+        If rootPath Is Nothing Then
+            DataValid = False
+            Console.WriteLine("Fail")
+            MsgBox("Select a folder")
+        End If
+
         DataIsValid = DataValid
     End Function
 
@@ -283,4 +329,17 @@ Public Class Form1
 
     End Function
 
+
+    Function loadHashedUsers() As List(Of String)
+
+    End Function
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
+        If (FolderBrowserDialog1.ShowDialog() = DialogResult.OK) Then
+            rootPath = FolderBrowserDialog1.SelectedPath
+        End If
+        MsgBox(FolderBrowserDialog1.SelectedPath)
+
+    End Sub
 End Class

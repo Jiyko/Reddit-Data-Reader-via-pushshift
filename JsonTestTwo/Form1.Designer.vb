@@ -42,6 +42,7 @@ Partial Class Form1
         Me.Label6 = New System.Windows.Forms.Label()
         Me.minPostNumber = New System.Windows.Forms.TextBox()
         Me.Weekly = New System.Windows.Forms.CheckBox()
+        Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -90,10 +91,10 @@ Partial Class Form1
         '
         'MainText
         '
-        Me.MainText.Location = New System.Drawing.Point(12, 146)
+        Me.MainText.Location = New System.Drawing.Point(12, 191)
         Me.MainText.Name = "MainText"
         Me.MainText.ReadOnly = True
-        Me.MainText.Size = New System.Drawing.Size(417, 190)
+        Me.MainText.Size = New System.Drawing.Size(417, 145)
         Me.MainText.TabIndex = 6
         Me.MainText.Text = ""
         '
@@ -103,6 +104,7 @@ Partial Class Form1
         Me.StartDate.Name = "StartDate"
         Me.StartDate.Size = New System.Drawing.Size(100, 20)
         Me.StartDate.TabIndex = 7
+        Me.StartDate.Value = New Date(2018, 6, 1, 17, 28, 0, 0)
         '
         'Label3
         '
@@ -156,9 +158,9 @@ Partial Class Form1
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(12, 59)
+        Me.Button2.Location = New System.Drawing.Point(12, 58)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(112, 41)
+        Me.Button2.Size = New System.Drawing.Size(112, 38)
         Me.Button2.TabIndex = 14
         Me.Button2.Text = "Select File Location"
         Me.Button2.UseVisualStyleBackColor = True
@@ -191,6 +193,7 @@ Partial Class Form1
         Me.minWordCount.Name = "minWordCount"
         Me.minWordCount.Size = New System.Drawing.Size(179, 20)
         Me.minWordCount.TabIndex = 17
+        Me.minWordCount.Text = "20"
         '
         'Label6
         '
@@ -207,6 +210,7 @@ Partial Class Form1
         Me.minPostNumber.Name = "minPostNumber"
         Me.minPostNumber.Size = New System.Drawing.Size(179, 20)
         Me.minPostNumber.TabIndex = 0
+        Me.minPostNumber.Text = "2"
         '
         'Weekly
         '
@@ -268,4 +272,5 @@ Partial Class Form1
     Friend WithEvents Label7 As Label
     Friend WithEvents minWordCount As TextBox
     Friend WithEvents Weekly As CheckBox
+    Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
 End Class

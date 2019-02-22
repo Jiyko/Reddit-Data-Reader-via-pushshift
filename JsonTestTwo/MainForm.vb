@@ -1,10 +1,14 @@
 ﻿Imports System
 Imports System.Net
 Imports System.IO
+Imports System.Text
+Imports StreamJsonRpc
 
-Public Class Form1
+Public Class MainForm
 
+    'Gloabl for the root folder
     Dim rootPath As String
+    Dim list As List(Of KeyValuePair(Of Double, String)) = New List(Of KeyValuePair(Of Double, String))
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
@@ -31,6 +35,31 @@ Public Class Form1
 
 
             Dim hashedUserList As New List(Of String)
+            Dim nameFile As System.IO.StreamReader
+
+            Try
+
+                nameFile = My.Computer.FileSystem.OpenTextFileReader(rootPath + "\" + FileNameBox.Text() + "hashedNames.txt")
+
+                Dim nameTracker As String
+                nameTracker = nameFile.ReadLine
+
+                Do While Not nameTracker Is Nothing
+                    hashedUserList.Add(nameTracker)
+                    nameTracker = nameFile.ReadLine
+                Loop
+
+
+            Catch exTwo As Exception
+
+                Dim hashedUserListFileCreate As New StreamWriter(rootPath + "\" + "hashedNames.txt", True)
+                hashedUserListFileCreate.Close()
+
+            End Try
+
+            nameFile.Close()
+
+
 
             Dim twoWeekUTC As Double
             twoWeekUTC = 1209600
@@ -38,18 +67,16 @@ Public Class Form1
             oneWeekUTC = 604800
 
 
-            Dim list As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))
-            list.Add(New KeyValuePair(Of String, String)("dot", "Test"))
+            Dim tempList As List(Of KeyValuePair(Of Double, String)) = New List(Of KeyValuePair(Of Double, String))
 
+            Dim timeTracker = startWindowUTC
 
-            Console.WriteLine("Fail".GetHashCode())
-            Console.WriteLine("Fail".GetHashCode())
-
-
+            Dim files() As String = IO.Directory.GetFiles(rootPath + "\")
 
             Dim bodyTracker As String
 
             Dim FinalStartDate As String
+            Dim PosterStartDate As String
             Dim FinalEndDate As String
             Dim FinalSize As String
             Dim FinalTags As String
@@ -99,6 +126,7 @@ Public Class Form1
                 sDay = "0" + sDay
             End If
 
+
             FinalStartDate = "&after=" + (sDate.Year).ToString + "-" + sMonth + "-" + sDay
 
 
@@ -114,6 +142,7 @@ Public Class Form1
             If (eDay.Length < 2) Then
                 eDay = "0" + eDay
             End If
+
 
             FinalEndDate = "&before=" + (eDate.Year).ToString + "-" + eMonth + "-" + eDay
 
@@ -171,6 +200,7 @@ Public Class Form1
                             bodyTracker = ""
 
                             sInnerLine = objInnerReader.ReadLine
+
                             Do While Not sInnerLine Is Nothing
 
                                 If Not sInnerLine.Equals("") Then
@@ -195,14 +225,24 @@ Public Class Form1
                                             sInnerLine = sInnerLine.Substring(21)
                                             sInnerLine.Trim()
 
-                                            Console.WriteLine(sInnerLine)
                                             bodyTracker = bodyTracker + vbCrLf + sInnerLine
 
                                             TotalLines = TotalLines + 1
                                             k += 1
-                                        End If
-                                    End If
 
+                                            Dim sInnerLineDate As String = objInnerReader.ReadLine
+
+                                            sInnerLineDate = sInnerLineDate.Substring(27)
+
+                                            Dim dataAsDouble As Double
+                                            Double.TryParse(sInnerLineDate, dataAsDouble)
+
+                                            tempList.Add(New KeyValuePair(Of Double, String)(dataAsDouble, sInnerLine))
+
+
+                                        End If
+
+                                    End If
                                 End If
 
                                 sInnerLine = objInnerReader.ReadLine
@@ -214,11 +254,27 @@ Public Class Form1
                             'checks the user validity 
                             If k >= Convert.ToInt32(minPostNumber.Text) Then
                                 If bodyTracker.Split(" ").Length - 1 >= Convert.ToInt32(minWordCount.Text) Then
-                                    file.WriteLine(bodyTracker)
+
+                                    For Each bob In tempList.ToArray
+
+                                        For Each boob In list.ToArray
+
+                                            If bob.Key < boob.Key Then
+
+                                                list.Add(New KeyValuePair(Of Double, String)(boob.Key, bob.Value))
+                                                Exit For
+
+                                            End If
+
+                                        Next
+
+                                    Next
                                     ValidPoster = ValidPoster + 1
                                     ValidLines = ValidLines + k
                                 End If
                             End If
+                            tempList.Clear()
+
                         End If
                     End If
 
@@ -233,6 +289,30 @@ Public Class Form1
             file.Close()
             statsFileW.Close()
             ProgressBar1.Value = 0
+
+            For Each bob In list.ToArray
+
+                Dim UTCFilebyDate As New StreamWriter(rootPath + "\" + (bob.Key).ToString + ".txt", True)
+                UTCFilebyDate.Write((bob.Value).Replace(Chr(34), vbCrLf))
+
+                UTCFilebyDate.Close()
+                list.Remove(New KeyValuePair(Of Double, String)(bob.Key, bob.Value))
+
+                list.Add(New KeyValuePair(Of Double, String)(bob.Key, ""))
+
+            Next
+
+            Dim hashedUserListFile As New StreamWriter(rootPath + "\" + FileNameBox.Text() + "hashedNames.txt", False)
+            For Each nameH In hashedUserList
+                hashedUserListFile.Write(nameH + vbCrLf)
+            Next
+            hashedUserListFile.Close()
+            hashedUserList.Clear()
+
+
+
+
+
 
         Else
             MsgBox("Something broke")
@@ -329,17 +409,60 @@ Public Class Form1
 
     End Function
 
-
-    Function loadHashedUsers() As List(Of String)
-
-    End Function
-
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
         If (FolderBrowserDialog1.ShowDialog() = DialogResult.OK) Then
             rootPath = FolderBrowserDialog1.SelectedPath
         End If
-        MsgBox(FolderBrowserDialog1.SelectedPath)
+
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Setup.Click
+
+        Dim startWindowUTC = (StartDate.Value() - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
+        Dim endWindowUTC = (EndDate.Value() - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
+
+        Dim twoWeekUTC As Double
+        twoWeekUTC = 1209600
+
+        Dim timeTracker = startWindowUTC
+
+        Do While timeTracker < endWindowUTC
+
+            list.Add(New KeyValuePair(Of Double, String)(timeTracker, ""))
+
+            If TwoWeekCheck.Checked Then
+                timeTracker = timeTracker + twoWeekUTC
+            End If
+
+        Loop
+
+    End Sub
+
+    Private Sub MileStoneDate_Click(sender As Object, e As EventArgs) Handles MileStoneDate.Click
+        Dim startWindowUTC = (MilePick.Value() - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
+        list.Add(New KeyValuePair(Of Double, String)(startWindowUTC, ""))
+
+        Dim doubleList As New List(Of Double)
+
+        For Each bob In list.ToArray
+            doubleList.Add(bob.Key)
+        Next
+
+        list.Clear()
+
+
+        doubleList.Sort()
+
+        For Each waka In doubleList
+
+            list.Add(New KeyValuePair(Of Double, String)(waka, ""))
+
+
+        Next
+
+
+
 
     End Sub
 End Class

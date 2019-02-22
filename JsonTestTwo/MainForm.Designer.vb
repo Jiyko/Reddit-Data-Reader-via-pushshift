@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Form1
+Partial Class MainForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -41,8 +41,11 @@ Partial Class Form1
         Me.minWordCount = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.minPostNumber = New System.Windows.Forms.TextBox()
-        Me.Weekly = New System.Windows.Forms.CheckBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.TwoWeekCheck = New System.Windows.Forms.CheckBox()
+        Me.Setup = New System.Windows.Forms.Button()
+        Me.MilePick = New System.Windows.Forms.DateTimePicker()
+        Me.MileStoneDate = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -68,7 +71,7 @@ Partial Class Form1
         Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!)
         Me.Button1.Location = New System.Drawing.Point(12, 371)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(417, 105)
+        Me.Button1.Size = New System.Drawing.Size(623, 105)
         Me.Button1.TabIndex = 2
         Me.Button1.Text = "Do The Thing"
         Me.Button1.UseVisualStyleBackColor = True
@@ -77,13 +80,13 @@ Partial Class Form1
         '
         Me.ProgressBar1.Location = New System.Drawing.Point(12, 342)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(417, 23)
+        Me.ProgressBar1.Size = New System.Drawing.Size(623, 23)
         Me.ProgressBar1.TabIndex = 3
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 103)
+        Me.Label2.Location = New System.Drawing.Point(12, 104)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(55, 13)
         Me.Label2.TabIndex = 4
@@ -91,16 +94,16 @@ Partial Class Form1
         '
         'MainText
         '
-        Me.MainText.Location = New System.Drawing.Point(12, 191)
+        Me.MainText.Location = New System.Drawing.Point(12, 186)
         Me.MainText.Name = "MainText"
         Me.MainText.ReadOnly = True
-        Me.MainText.Size = New System.Drawing.Size(417, 145)
+        Me.MainText.Size = New System.Drawing.Size(623, 150)
         Me.MainText.TabIndex = 6
         Me.MainText.Text = ""
         '
         'StartDate
         '
-        Me.StartDate.Location = New System.Drawing.Point(12, 119)
+        Me.StartDate.Location = New System.Drawing.Point(12, 122)
         Me.StartDate.Name = "StartDate"
         Me.StartDate.Size = New System.Drawing.Size(100, 20)
         Me.StartDate.TabIndex = 7
@@ -109,7 +112,7 @@ Partial Class Form1
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(163, 103)
+        Me.Label3.Location = New System.Drawing.Point(163, 104)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(52, 13)
         Me.Label3.TabIndex = 8
@@ -117,7 +120,7 @@ Partial Class Form1
         '
         'EndDate
         '
-        Me.EndDate.Location = New System.Drawing.Point(118, 119)
+        Me.EndDate.Location = New System.Drawing.Point(118, 122)
         Me.EndDate.Name = "EndDate"
         Me.EndDate.Size = New System.Drawing.Size(97, 20)
         Me.EndDate.TabIndex = 9
@@ -212,22 +215,57 @@ Partial Class Form1
         Me.minPostNumber.TabIndex = 0
         Me.minPostNumber.Text = "2"
         '
-        'Weekly
+        'FolderBrowserDialog1
         '
-        Me.Weekly.AutoSize = True
-        Me.Weekly.Location = New System.Drawing.Point(246, 123)
-        Me.Weekly.Name = "Weekly"
-        Me.Weekly.Size = New System.Drawing.Size(158, 17)
-        Me.Weekly.TabIndex = 16
-        Me.Weekly.Text = "Create seperate weekly files"
-        Me.Weekly.UseVisualStyleBackColor = True
+        Me.FolderBrowserDialog1.SelectedPath = "D:\RedditRips\Test"
         '
-        'Form1
+        'TwoWeekCheck
+        '
+        Me.TwoWeekCheck.AutoSize = True
+        Me.TwoWeekCheck.Checked = True
+        Me.TwoWeekCheck.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.TwoWeekCheck.Enabled = False
+        Me.TwoWeekCheck.Location = New System.Drawing.Point(246, 122)
+        Me.TwoWeekCheck.Name = "TwoWeekCheck"
+        Me.TwoWeekCheck.Size = New System.Drawing.Size(163, 17)
+        Me.TwoWeekCheck.TabIndex = 17
+        Me.TwoWeekCheck.Text = "Create seperate fortnight files"
+        Me.TwoWeekCheck.UseVisualStyleBackColor = True
+        '
+        'Setup
+        '
+        Me.Setup.Location = New System.Drawing.Point(12, 146)
+        Me.Setup.Name = "Setup"
+        Me.Setup.Size = New System.Drawing.Size(203, 34)
+        Me.Setup.TabIndex = 18
+        Me.Setup.Text = "Initilise"
+        Me.Setup.UseVisualStyleBackColor = True
+        '
+        'MilePick
+        '
+        Me.MilePick.Location = New System.Drawing.Point(435, 13)
+        Me.MilePick.Name = "MilePick"
+        Me.MilePick.Size = New System.Drawing.Size(200, 20)
+        Me.MilePick.TabIndex = 19
+        '
+        'MileStoneDate
+        '
+        Me.MileStoneDate.Location = New System.Drawing.Point(435, 39)
+        Me.MileStoneDate.Name = "MileStoneDate"
+        Me.MileStoneDate.Size = New System.Drawing.Size(200, 32)
+        Me.MileStoneDate.TabIndex = 20
+        Me.MileStoneDate.Text = "Add Milestone Dates"
+        Me.MileStoneDate.UseVisualStyleBackColor = True
+        '
+        'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(441, 488)
-        Me.Controls.Add(Me.Weekly)
+        Me.ClientSize = New System.Drawing.Size(645, 488)
+        Me.Controls.Add(Me.MileStoneDate)
+        Me.Controls.Add(Me.MilePick)
+        Me.Controls.Add(Me.Setup)
+        Me.Controls.Add(Me.TwoWeekCheck)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Label5)
@@ -243,7 +281,8 @@ Partial Class Form1
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.SubReddit)
-        Me.Name = "Form1"
+        Me.MaximizeBox = False
+        Me.Name = "MainForm"
         Me.Text = "MRG"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
@@ -271,6 +310,9 @@ Partial Class Form1
     Friend WithEvents minPostNumber As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents minWordCount As TextBox
-    Friend WithEvents Weekly As CheckBox
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
+    Friend WithEvents TwoWeekCheck As CheckBox
+    Friend WithEvents Setup As Button
+    Friend WithEvents MilePick As DateTimePicker
+    Friend WithEvents MileStoneDate As Button
 End Class

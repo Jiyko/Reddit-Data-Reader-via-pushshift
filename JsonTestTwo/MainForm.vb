@@ -23,10 +23,17 @@ Public Class MainForm
 
             Dim sMonth As String
             Dim sDay As String
+
             Dim eMonth As String
             Dim eDay As String
+
             Dim sDate As Date
             Dim eDate As Date
+
+            Dim sampleDay As String
+            Dim sampleMonth As String
+            Dim sampleDate As Date
+            Dim SampleDateFinal As String
 
             Dim filterWords = New String() {"removed", "https", "remove", "http", "I am a bot"}
 
@@ -76,7 +83,6 @@ Public Class MainForm
             Dim bodyTracker As String
 
             Dim FinalStartDate As String
-            Dim PosterStartDate As String
             Dim FinalEndDate As String
             Dim FinalSize As String
             Dim FinalTags As String
@@ -146,6 +152,21 @@ Public Class MainForm
 
             FinalEndDate = "&before=" + (eDate.Year).ToString + "-" + eMonth + "-" + eDay
 
+            'Sample Date Junk
+            sampleDate = DateToSample.Value()
+            sampleMonth = (sampleDate.Month).ToString
+            sampleDay = (sampleDate.Day).ToString
+
+            If (sampleMonth.Length < 2) Then
+                sampleMonth = "0" + sampleMonth
+            End If
+
+            If (sampleDay.Length < 2) Then
+                sampleDay = "0" + sampleDay
+            End If
+
+            SampleDateFinal = "&after=" + (sampleDate.Year).ToString + "-" + sampleMonth + "-" + sampleDay
+
             ProgressBar1.Maximum = CInt(NumberToCheck.Text())
 
             FinalSize = "&size=" + NumberToCheck.Text()
@@ -153,8 +174,8 @@ Public Class MainForm
 
             FinalBodyTags = "&filter=body"
 
-            FirstRunURL = sURL + FinalStartDate + FinalEndDate + FinalSize + FinalTags
-            SecondRunURL = sURL + FinalStartDate + FinalEndDate + "&filter=body,created_utc&&author="
+            FirstRunURL = sURL + SampleDateFinal + FinalEndDate + FinalSize + FinalTags
+            SecondRunURL = sURL + FinalStartDate + FinalEndDate + FinalSize + "&filter=body,created_utc&&author="
 
             Dim objReader = OpenStream(FirstRunURL)
 
@@ -253,15 +274,20 @@ Public Class MainForm
 
                             'checks the user validity 
                             If k >= Convert.ToInt32(minPostNumber.Text) Then
-                                If bodyTracker.Split(" ").Length - 1 >= Convert.ToInt32(minWordCount.Text) Then
+                                If bodyTracker.Split(" ").Length + 1 >= Convert.ToInt32(minWordCount.Text) Then
 
                                     For Each bob In tempList.ToArray
 
+                                        Dim roundedTime As Double
+                                        roundedTime = nearestRoundedDouble(bob.Key)
+
                                         For Each boob In list.ToArray
 
-                                            If bob.Key < boob.Key Then
+                                            If boob.Key = roundedTime Then
 
-                                                list.Add(New KeyValuePair(Of Double, String)(boob.Key, bob.Value))
+                                                list.Remove(New KeyValuePair(Of Double, String)(roundedTime, boob.Value))
+                                                list.Add(New KeyValuePair(Of Double, String)(roundedTime, bob.Value + boob.Value))
+
                                                 Exit For
 
                                             End If
@@ -301,6 +327,7 @@ Public Class MainForm
                 list.Add(New KeyValuePair(Of Double, String)(bob.Key, ""))
 
             Next
+
 
             Dim hashedUserListFile As New StreamWriter(rootPath + "\" + FileNameBox.Text() + "hashedNames.txt", False)
             For Each nameH In hashedUserList
@@ -427,6 +454,8 @@ Public Class MainForm
 
         Dim timeTracker = startWindowUTC
 
+        list.Add(New KeyValuePair(Of Double, String)(timeTracker - twoWeekUTC, ""))
+
         Do While timeTracker < endWindowUTC
 
             list.Add(New KeyValuePair(Of Double, String)(timeTracker, ""))
@@ -436,12 +465,15 @@ Public Class MainForm
             End If
 
         Loop
+        list.Add(New KeyValuePair(Of Double, String)(endWindowUTC, ""))
+
+        Setup.Enabled = False
 
     End Sub
 
     Private Sub MileStoneDate_Click(sender As Object, e As EventArgs) Handles MileStoneDate.Click
-        Dim startWindowUTC = (MilePick.Value() - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
-        list.Add(New KeyValuePair(Of Double, String)(startWindowUTC, ""))
+        Dim newMileStone = (MilePick.Value() - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
+        list.Add(New KeyValuePair(Of Double, String)(newMileStone, ""))
 
         Dim doubleList As New List(Of Double)
 
@@ -458,11 +490,32 @@ Public Class MainForm
 
             list.Add(New KeyValuePair(Of Double, String)(waka, ""))
 
-
         Next
 
-
-
-
     End Sub
+
+
+    Function nearestRoundedDouble(tobeDouble As Double) As Double
+
+        Dim doubleList As New List(Of Double)
+
+        Dim doubleTracker As Double
+        Dim lastDoubleTracker As Double
+        For Each bob In list.ToArray
+            doubleList.Add(bob.Key)
+        Next
+
+        doubleList.Sort()
+        lastDoubleTracker = doubleList(0)
+        For Each waka In doubleList
+            If tobeDouble <= waka Then
+                doubleTracker = lastDoubleTracker
+                Exit For
+            End If
+            lastDoubleTracker = waka
+        Next
+
+        nearestRoundedDouble = doubleTracker
+    End Function
+
 End Class

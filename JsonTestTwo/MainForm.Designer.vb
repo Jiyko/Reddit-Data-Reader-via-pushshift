@@ -46,12 +46,16 @@ Partial Class MainForm
         Me.Setup = New System.Windows.Forms.Button()
         Me.MilePick = New System.Windows.Forms.DateTimePicker()
         Me.MileStoneDate = New System.Windows.Forms.Button()
+        Me.DateToSample = New System.Windows.Forms.DateTimePicker()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'SubReddit
         '
-        Me.SubReddit.Location = New System.Drawing.Point(12, 30)
+        Me.SubReddit.Location = New System.Drawing.Point(12, 52)
         Me.SubReddit.Name = "SubReddit"
         Me.SubReddit.Size = New System.Drawing.Size(73, 20)
         Me.SubReddit.TabIndex = 0
@@ -60,7 +64,7 @@ Partial Class MainForm
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(13, 13)
+        Me.Label1.Location = New System.Drawing.Point(13, 35)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(57, 13)
         Me.Label1.TabIndex = 1
@@ -69,24 +73,24 @@ Partial Class MainForm
         'Button1
         '
         Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!)
-        Me.Button1.Location = New System.Drawing.Point(12, 371)
+        Me.Button1.Location = New System.Drawing.Point(10, 431)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(623, 105)
+        Me.Button1.Size = New System.Drawing.Size(416, 105)
         Me.Button1.TabIndex = 2
         Me.Button1.Text = "Do The Thing"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'ProgressBar1
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(12, 342)
+        Me.ProgressBar1.Location = New System.Drawing.Point(12, 364)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(623, 23)
+        Me.ProgressBar1.Size = New System.Drawing.Size(414, 23)
         Me.ProgressBar1.TabIndex = 3
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 104)
+        Me.Label2.Location = New System.Drawing.Point(12, 120)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(55, 13)
         Me.Label2.TabIndex = 4
@@ -94,16 +98,16 @@ Partial Class MainForm
         '
         'MainText
         '
-        Me.MainText.Location = New System.Drawing.Point(12, 186)
+        Me.MainText.Location = New System.Drawing.Point(12, 227)
         Me.MainText.Name = "MainText"
         Me.MainText.ReadOnly = True
-        Me.MainText.Size = New System.Drawing.Size(623, 150)
+        Me.MainText.Size = New System.Drawing.Size(414, 131)
         Me.MainText.TabIndex = 6
         Me.MainText.Text = ""
         '
         'StartDate
         '
-        Me.StartDate.Location = New System.Drawing.Point(12, 122)
+        Me.StartDate.Location = New System.Drawing.Point(12, 138)
         Me.StartDate.Name = "StartDate"
         Me.StartDate.Size = New System.Drawing.Size(100, 20)
         Me.StartDate.TabIndex = 7
@@ -112,7 +116,7 @@ Partial Class MainForm
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(163, 104)
+        Me.Label3.Location = New System.Drawing.Point(163, 118)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(52, 13)
         Me.Label3.TabIndex = 8
@@ -120,7 +124,7 @@ Partial Class MainForm
         '
         'EndDate
         '
-        Me.EndDate.Location = New System.Drawing.Point(118, 122)
+        Me.EndDate.Location = New System.Drawing.Point(118, 138)
         Me.EndDate.Name = "EndDate"
         Me.EndDate.Size = New System.Drawing.Size(97, 20)
         Me.EndDate.TabIndex = 9
@@ -136,7 +140,7 @@ Partial Class MainForm
         '
         'FileNameBox
         '
-        Me.FileNameBox.Location = New System.Drawing.Point(130, 76)
+        Me.FileNameBox.Location = New System.Drawing.Point(130, 78)
         Me.FileNameBox.Name = "FileNameBox"
         Me.FileNameBox.Size = New System.Drawing.Size(85, 20)
         Me.FileNameBox.TabIndex = 10
@@ -145,25 +149,25 @@ Partial Class MainForm
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(100, 13)
+        Me.Label5.Location = New System.Drawing.Point(100, 35)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(47, 13)
+        Me.Label5.Size = New System.Drawing.Size(81, 13)
         Me.Label5.TabIndex = 13
-        Me.Label5.Text = "Number "
+        Me.Label5.Text = "Number of Calls"
         '
         'NumberToCheck
         '
-        Me.NumberToCheck.Location = New System.Drawing.Point(99, 30)
+        Me.NumberToCheck.Location = New System.Drawing.Point(99, 52)
         Me.NumberToCheck.Name = "NumberToCheck"
         Me.NumberToCheck.Size = New System.Drawing.Size(116, 20)
         Me.NumberToCheck.TabIndex = 12
-        Me.NumberToCheck.Text = "300"
+        Me.NumberToCheck.Text = "450"
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(12, 58)
+        Me.Button2.Location = New System.Drawing.Point(12, 78)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(112, 38)
+        Me.Button2.Size = New System.Drawing.Size(112, 20)
         Me.Button2.TabIndex = 14
         Me.Button2.Text = "Select File Location"
         Me.Button2.UseVisualStyleBackColor = True
@@ -174,7 +178,7 @@ Partial Class MainForm
         Me.GroupBox1.Controls.Add(Me.minWordCount)
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.minPostNumber)
-        Me.GroupBox1.Location = New System.Drawing.Point(237, 13)
+        Me.GroupBox1.Location = New System.Drawing.Point(234, 112)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(192, 109)
         Me.GroupBox1.TabIndex = 15
@@ -196,7 +200,7 @@ Partial Class MainForm
         Me.minWordCount.Name = "minWordCount"
         Me.minWordCount.Size = New System.Drawing.Size(179, 20)
         Me.minWordCount.TabIndex = 17
-        Me.minWordCount.Text = "20"
+        Me.minWordCount.Text = "150"
         '
         'Label6
         '
@@ -213,7 +217,7 @@ Partial Class MainForm
         Me.minPostNumber.Name = "minPostNumber"
         Me.minPostNumber.Size = New System.Drawing.Size(179, 20)
         Me.minPostNumber.TabIndex = 0
-        Me.minPostNumber.Text = "2"
+        Me.minPostNumber.Text = "3"
         '
         'FolderBrowserDialog1
         '
@@ -225,7 +229,7 @@ Partial Class MainForm
         Me.TwoWeekCheck.Checked = True
         Me.TwoWeekCheck.CheckState = System.Windows.Forms.CheckState.Checked
         Me.TwoWeekCheck.Enabled = False
-        Me.TwoWeekCheck.Location = New System.Drawing.Point(246, 122)
+        Me.TwoWeekCheck.Location = New System.Drawing.Point(29, 204)
         Me.TwoWeekCheck.Name = "TwoWeekCheck"
         Me.TwoWeekCheck.Size = New System.Drawing.Size(163, 17)
         Me.TwoWeekCheck.TabIndex = 17
@@ -234,7 +238,7 @@ Partial Class MainForm
         '
         'Setup
         '
-        Me.Setup.Location = New System.Drawing.Point(12, 146)
+        Me.Setup.Location = New System.Drawing.Point(12, 162)
         Me.Setup.Name = "Setup"
         Me.Setup.Size = New System.Drawing.Size(203, 34)
         Me.Setup.TabIndex = 18
@@ -243,25 +247,66 @@ Partial Class MainForm
         '
         'MilePick
         '
-        Me.MilePick.Location = New System.Drawing.Point(435, 13)
+        Me.MilePick.Location = New System.Drawing.Point(227, 34)
         Me.MilePick.Name = "MilePick"
         Me.MilePick.Size = New System.Drawing.Size(200, 20)
         Me.MilePick.TabIndex = 19
         '
         'MileStoneDate
         '
-        Me.MileStoneDate.Location = New System.Drawing.Point(435, 39)
+        Me.MileStoneDate.Location = New System.Drawing.Point(227, 60)
         Me.MileStoneDate.Name = "MileStoneDate"
-        Me.MileStoneDate.Size = New System.Drawing.Size(200, 32)
+        Me.MileStoneDate.Size = New System.Drawing.Size(200, 38)
         Me.MileStoneDate.TabIndex = 20
-        Me.MileStoneDate.Text = "Add Milestone Dates"
+        Me.MileStoneDate.Text = "Add Milestone Date"
         Me.MileStoneDate.UseVisualStyleBackColor = True
+        '
+        'DateToSample
+        '
+        Me.DateToSample.Location = New System.Drawing.Point(130, 405)
+        Me.DateToSample.Name = "DateToSample"
+        Me.DateToSample.Size = New System.Drawing.Size(200, 20)
+        Me.DateToSample.TabIndex = 21
+        Me.DateToSample.Value = New Date(2018, 11, 14, 0, 0, 0, 0)
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(146, 390)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(156, 13)
+        Me.Label8.TabIndex = 22
+        Me.Label8.Text = "Date to collect participants from"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!)
+        Me.Label9.Location = New System.Drawing.Point(13, 9)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(192, 22)
+        Me.Label9.TabIndex = 24
+        Me.Label9.Text = "1st - Setup parameters"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!)
+        Me.Label10.Location = New System.Drawing.Point(239, 9)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(178, 22)
+        Me.Label10.TabIndex = 25
+        Me.Label10.Text = "2nd - Add Milestones"
         '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(645, 488)
+        Me.ClientSize = New System.Drawing.Size(439, 548)
+        Me.Controls.Add(Me.Label10)
+        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.DateToSample)
         Me.Controls.Add(Me.MileStoneDate)
         Me.Controls.Add(Me.MilePick)
         Me.Controls.Add(Me.Setup)
@@ -315,4 +360,8 @@ Partial Class MainForm
     Friend WithEvents Setup As Button
     Friend WithEvents MilePick As DateTimePicker
     Friend WithEvents MileStoneDate As Button
+    Friend WithEvents DateToSample As DateTimePicker
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label10 As Label
 End Class

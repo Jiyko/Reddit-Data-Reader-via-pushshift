@@ -62,10 +62,11 @@ Public Class MainForm
                 Dim hashedUserListFileCreate As New StreamWriter(rootPath + "\" + "hashedNames.txt", True)
                 hashedUserListFileCreate.Close()
 
+
+            Finally
+                nameFile.Close()
+
             End Try
-
-            nameFile.Close()
-
 
 
             Dim twoWeekUTC As Double

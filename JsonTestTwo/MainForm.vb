@@ -45,29 +45,34 @@ Public Class MainForm
             Dim nameFile As System.IO.StreamReader
 
             Try
+                'Trys to open the hashnamedFiles
 
-                nameFile = My.Computer.FileSystem.OpenTextFileReader(rootPath + "\" + FileNameBox.Text() + "hashedNames.txt")
+                If My.Computer.FileSystem.FileExists(rootPath + "\" + FileNameBox.Text() + "hashedNames.txt") Then
+                    'If the file exists, iterate over it and add the content to the hashedUserList 
 
-                Dim nameTracker As String
-                nameTracker = nameFile.ReadLine
+                    nameFile = My.Computer.FileSystem.OpenTextFileReader(rootPath + "\" + FileNameBox.Text() + "hashedNames.txt")
 
-                Do While Not nameTracker Is Nothing
-                    hashedUserList.Add(nameTracker)
+                    Dim nameTracker As String
                     nameTracker = nameFile.ReadLine
-                Loop
 
+                    Do While Not nameTracker Is Nothing
+                        hashedUserList.Add(nameTracker)
+                        nameTracker = nameFile.ReadLine
+                    Loop
+
+                    nameFile.Close()
+
+                Else
+                    'If the file does not exists, create it 
+
+                    Dim hashedUserListFileCreate As New StreamWriter(rootPath + "\" + FileNameBox.Text() + "hashedNames.txt", True)
+                    hashedUserListFileCreate.Close()
+
+                End If
 
             Catch exTwo As Exception
 
-                Dim hashedUserListFileCreate As New StreamWriter(rootPath + "\" + "hashedNames.txt", True)
-                hashedUserListFileCreate.Close()
-
-
-            Finally
-                nameFile.Close()
-
             End Try
-
 
             Dim twoWeekUTC As Double
             twoWeekUTC = 1209600
@@ -103,15 +108,21 @@ Public Class MainForm
             file = My.Computer.FileSystem.OpenTextFileWriter(rootPath + "\" + FileNameBox.Text() + ".txt", True)
 
 
-            'Get the latest stats
-            Dim statsFile As System.IO.StreamReader
-            statsFile = My.Computer.FileSystem.OpenTextFileReader(rootPath + "\" + FileNameBox.Text() + "Stats.txt")
-            ValidLines = Convert.ToInt32(statsFile.ReadLine())
-            TotalLines = Convert.ToInt32(statsFile.ReadLine())
-            ValidPoster = Convert.ToInt32(statsFile.ReadLine())
-            TotalPoster = Convert.ToInt32(statsFile.ReadLine())
 
-            statsFile.Close()
+            If My.Computer.FileSystem.FileExists(rootPath + "\" + FileNameBox.Text() + "Stats.txt") Then
+                'If the stats file exists pull the data
+
+                'Get the latest stats
+                Dim statsFile As System.IO.StreamReader
+                statsFile = My.Computer.FileSystem.OpenTextFileReader(rootPath + "\" + FileNameBox.Text() + "Stats.txt")
+                ValidLines = Convert.ToInt32(statsFile.ReadLine())
+                TotalLines = Convert.ToInt32(statsFile.ReadLine())
+                ValidPoster = Convert.ToInt32(statsFile.ReadLine())
+                TotalPoster = Convert.ToInt32(statsFile.ReadLine())
+
+                statsFile.Close()
+
+            End If
 
             Dim statsFileW As System.IO.StreamWriter
             statsFileW = My.Computer.FileSystem.OpenTextFileWriter(rootPath + "\" + FileNameBox.Text() + "Stats.txt", False)
@@ -518,5 +529,4 @@ Public Class MainForm
 
         nearestRoundedDouble = doubleTracker
     End Function
-
 End Class

@@ -55,119 +55,137 @@ Partial Class MainForm
         '
         'SubReddit
         '
-        Me.SubReddit.Location = New System.Drawing.Point(12, 52)
+        Me.SubReddit.Location = New System.Drawing.Point(16, 64)
+        Me.SubReddit.Margin = New System.Windows.Forms.Padding(4)
         Me.SubReddit.Name = "SubReddit"
-        Me.SubReddit.Size = New System.Drawing.Size(73, 20)
+        Me.SubReddit.Size = New System.Drawing.Size(96, 22)
         Me.SubReddit.TabIndex = 0
-        Me.SubReddit.Text = "FortniteBR"
+        Me.SubReddit.Text = "Ireland"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(13, 35)
+        Me.Label1.Location = New System.Drawing.Point(17, 43)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(57, 13)
+        Me.Label1.Size = New System.Drawing.Size(74, 17)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "SubReddit"
         '
         'Button1
         '
         Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!)
-        Me.Button1.Location = New System.Drawing.Point(10, 431)
+        Me.Button1.Location = New System.Drawing.Point(16, 532)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(416, 105)
+        Me.Button1.Size = New System.Drawing.Size(652, 129)
         Me.Button1.TabIndex = 2
         Me.Button1.Text = "Do The Thing"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'ProgressBar1
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(12, 364)
+        Me.ProgressBar1.Location = New System.Drawing.Point(16, 448)
+        Me.ProgressBar1.Margin = New System.Windows.Forms.Padding(4)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(414, 23)
+        Me.ProgressBar1.Size = New System.Drawing.Size(652, 28)
         Me.ProgressBar1.TabIndex = 3
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 120)
+        Me.Label2.Location = New System.Drawing.Point(16, 148)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(55, 13)
+        Me.Label2.Size = New System.Drawing.Size(72, 17)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Start Date"
         '
         'MainText
         '
-        Me.MainText.Location = New System.Drawing.Point(12, 227)
+        Me.MainText.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.MainText.Enabled = False
+        Me.MainText.Location = New System.Drawing.Point(16, 279)
+        Me.MainText.Margin = New System.Windows.Forms.Padding(4)
         Me.MainText.Name = "MainText"
         Me.MainText.ReadOnly = True
-        Me.MainText.Size = New System.Drawing.Size(414, 131)
+        Me.MainText.Size = New System.Drawing.Size(654, 160)
         Me.MainText.TabIndex = 6
         Me.MainText.Text = ""
         '
         'StartDate
         '
-        Me.StartDate.Location = New System.Drawing.Point(12, 138)
+        Me.StartDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.StartDate.Location = New System.Drawing.Point(16, 170)
+        Me.StartDate.Margin = New System.Windows.Forms.Padding(4)
         Me.StartDate.Name = "StartDate"
-        Me.StartDate.Size = New System.Drawing.Size(100, 20)
+        Me.StartDate.Size = New System.Drawing.Size(132, 22)
         Me.StartDate.TabIndex = 7
         Me.StartDate.Value = New Date(2018, 6, 1, 17, 28, 0, 0)
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(163, 118)
+        Me.Label3.Location = New System.Drawing.Point(326, 145)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(52, 13)
+        Me.Label3.Size = New System.Drawing.Size(67, 17)
         Me.Label3.TabIndex = 8
         Me.Label3.Text = "End Date"
         '
         'EndDate
         '
-        Me.EndDate.Location = New System.Drawing.Point(118, 138)
+        Me.EndDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.EndDate.Location = New System.Drawing.Point(265, 170)
+        Me.EndDate.Margin = New System.Windows.Forms.Padding(4)
         Me.EndDate.Name = "EndDate"
-        Me.EndDate.Size = New System.Drawing.Size(97, 20)
+        Me.EndDate.Size = New System.Drawing.Size(128, 22)
         Me.EndDate.TabIndex = 9
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(128, 58)
+        Me.Label4.Location = New System.Drawing.Point(272, 43)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(92, 13)
+        Me.Label4.Size = New System.Drawing.Size(121, 17)
         Me.Label4.TabIndex = 11
         Me.Label4.Text = "File Name To Use"
         '
         'FileNameBox
         '
-        Me.FileNameBox.Location = New System.Drawing.Point(130, 78)
+        Me.FileNameBox.Location = New System.Drawing.Point(220, 64)
+        Me.FileNameBox.Margin = New System.Windows.Forms.Padding(4)
         Me.FileNameBox.Name = "FileNameBox"
-        Me.FileNameBox.Size = New System.Drawing.Size(85, 20)
+        Me.FileNameBox.Size = New System.Drawing.Size(173, 22)
         Me.FileNameBox.TabIndex = 10
-        Me.FileNameBox.Text = "Pre"
+        Me.FileNameBox.Text = "RedditDataPull-Ireland"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(100, 35)
+        Me.Label5.Location = New System.Drawing.Point(117, 43)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(81, 13)
+        Me.Label5.Size = New System.Drawing.Size(108, 17)
         Me.Label5.TabIndex = 13
         Me.Label5.Text = "Number of Calls"
         '
         'NumberToCheck
         '
-        Me.NumberToCheck.Location = New System.Drawing.Point(99, 52)
+        Me.NumberToCheck.Location = New System.Drawing.Point(129, 64)
+        Me.NumberToCheck.Margin = New System.Windows.Forms.Padding(4)
         Me.NumberToCheck.Name = "NumberToCheck"
-        Me.NumberToCheck.Size = New System.Drawing.Size(116, 20)
+        Me.NumberToCheck.Size = New System.Drawing.Size(77, 22)
         Me.NumberToCheck.TabIndex = 12
-        Me.NumberToCheck.Text = "450"
+        Me.NumberToCheck.Text = "10"
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(12, 78)
+        Me.Button2.Location = New System.Drawing.Point(16, 96)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(4)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(112, 20)
+        Me.Button2.Size = New System.Drawing.Size(377, 45)
         Me.Button2.TabIndex = 14
         Me.Button2.Text = "Select File Location"
         Me.Button2.UseVisualStyleBackColor = True
@@ -178,9 +196,11 @@ Partial Class MainForm
         Me.GroupBox1.Controls.Add(Me.minWordCount)
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.minPostNumber)
-        Me.GroupBox1.Location = New System.Drawing.Point(234, 112)
+        Me.GroupBox1.Location = New System.Drawing.Point(414, 137)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(192, 109)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox1.Size = New System.Drawing.Size(256, 134)
         Me.GroupBox1.TabIndex = 15
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Privacy Restrictions"
@@ -188,34 +208,38 @@ Partial Class MainForm
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(6, 61)
+        Me.Label7.Location = New System.Drawing.Point(8, 75)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(108, 13)
+        Me.Label7.Size = New System.Drawing.Size(142, 17)
         Me.Label7.TabIndex = 18
         Me.Label7.Text = "Minimum Word Count"
         '
         'minWordCount
         '
-        Me.minWordCount.Location = New System.Drawing.Point(7, 79)
+        Me.minWordCount.Location = New System.Drawing.Point(9, 97)
+        Me.minWordCount.Margin = New System.Windows.Forms.Padding(4)
         Me.minWordCount.Name = "minWordCount"
-        Me.minWordCount.Size = New System.Drawing.Size(179, 20)
+        Me.minWordCount.Size = New System.Drawing.Size(237, 22)
         Me.minWordCount.TabIndex = 17
         Me.minWordCount.Text = "150"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(6, 20)
+        Me.Label6.Location = New System.Drawing.Point(8, 25)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(99, 13)
+        Me.Label6.Size = New System.Drawing.Size(130, 17)
         Me.Label6.TabIndex = 16
         Me.Label6.Text = "Minimum # of Posts"
         '
         'minPostNumber
         '
-        Me.minPostNumber.Location = New System.Drawing.Point(7, 38)
+        Me.minPostNumber.Location = New System.Drawing.Point(9, 47)
+        Me.minPostNumber.Margin = New System.Windows.Forms.Padding(4)
         Me.minPostNumber.Name = "minPostNumber"
-        Me.minPostNumber.Size = New System.Drawing.Size(179, 20)
+        Me.minPostNumber.Size = New System.Drawing.Size(237, 22)
         Me.minPostNumber.TabIndex = 0
         Me.minPostNumber.Text = "3"
         '
@@ -229,52 +253,58 @@ Partial Class MainForm
         Me.TwoWeekCheck.Checked = True
         Me.TwoWeekCheck.CheckState = System.Windows.Forms.CheckState.Checked
         Me.TwoWeekCheck.Enabled = False
-        Me.TwoWeekCheck.Location = New System.Drawing.Point(29, 204)
+        Me.TwoWeekCheck.Location = New System.Drawing.Point(16, 250)
+        Me.TwoWeekCheck.Margin = New System.Windows.Forms.Padding(4)
         Me.TwoWeekCheck.Name = "TwoWeekCheck"
-        Me.TwoWeekCheck.Size = New System.Drawing.Size(163, 17)
+        Me.TwoWeekCheck.Size = New System.Drawing.Size(217, 21)
         Me.TwoWeekCheck.TabIndex = 17
         Me.TwoWeekCheck.Text = "Create seperate fortnight files"
         Me.TwoWeekCheck.UseVisualStyleBackColor = True
         '
         'Setup
         '
-        Me.Setup.Location = New System.Drawing.Point(12, 162)
+        Me.Setup.Location = New System.Drawing.Point(16, 199)
+        Me.Setup.Margin = New System.Windows.Forms.Padding(4)
         Me.Setup.Name = "Setup"
-        Me.Setup.Size = New System.Drawing.Size(203, 34)
+        Me.Setup.Size = New System.Drawing.Size(377, 42)
         Me.Setup.TabIndex = 18
-        Me.Setup.Text = "Initilise"
+        Me.Setup.Text = "Initialise"
         Me.Setup.UseVisualStyleBackColor = True
         '
         'MilePick
         '
-        Me.MilePick.Location = New System.Drawing.Point(227, 34)
+        Me.MilePick.Location = New System.Drawing.Point(416, 42)
+        Me.MilePick.Margin = New System.Windows.Forms.Padding(4)
         Me.MilePick.Name = "MilePick"
-        Me.MilePick.Size = New System.Drawing.Size(200, 20)
+        Me.MilePick.Size = New System.Drawing.Size(254, 22)
         Me.MilePick.TabIndex = 19
         '
         'MileStoneDate
         '
-        Me.MileStoneDate.Location = New System.Drawing.Point(227, 60)
+        Me.MileStoneDate.Location = New System.Drawing.Point(416, 73)
+        Me.MileStoneDate.Margin = New System.Windows.Forms.Padding(4)
         Me.MileStoneDate.Name = "MileStoneDate"
-        Me.MileStoneDate.Size = New System.Drawing.Size(200, 38)
+        Me.MileStoneDate.Size = New System.Drawing.Size(254, 47)
         Me.MileStoneDate.TabIndex = 20
         Me.MileStoneDate.Text = "Add Milestone Date"
         Me.MileStoneDate.UseVisualStyleBackColor = True
         '
         'DateToSample
         '
-        Me.DateToSample.Location = New System.Drawing.Point(130, 405)
+        Me.DateToSample.Location = New System.Drawing.Point(220, 502)
+        Me.DateToSample.Margin = New System.Windows.Forms.Padding(4)
         Me.DateToSample.Name = "DateToSample"
-        Me.DateToSample.Size = New System.Drawing.Size(200, 20)
+        Me.DateToSample.Size = New System.Drawing.Size(265, 22)
         Me.DateToSample.TabIndex = 21
         Me.DateToSample.Value = New Date(2018, 11, 14, 0, 0, 0, 0)
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(146, 390)
+        Me.Label8.Location = New System.Drawing.Point(244, 481)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(156, 13)
+        Me.Label8.Size = New System.Drawing.Size(207, 17)
         Me.Label8.TabIndex = 22
         Me.Label8.Text = "Date to collect participants from"
         '
@@ -282,9 +312,10 @@ Partial Class MainForm
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!)
-        Me.Label9.Location = New System.Drawing.Point(13, 9)
+        Me.Label9.Location = New System.Drawing.Point(17, 11)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(192, 22)
+        Me.Label9.Size = New System.Drawing.Size(233, 26)
         Me.Label9.TabIndex = 24
         Me.Label9.Text = "1st - Setup parameters"
         '
@@ -292,17 +323,18 @@ Partial Class MainForm
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!)
-        Me.Label10.Location = New System.Drawing.Point(239, 9)
+        Me.Label10.Location = New System.Drawing.Point(430, 10)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(178, 22)
+        Me.Label10.Size = New System.Drawing.Size(216, 26)
         Me.Label10.TabIndex = 25
         Me.Label10.Text = "2nd - Add Milestones"
         '
         'MainForm
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(439, 548)
+        Me.ClientSize = New System.Drawing.Size(681, 674)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label8)
@@ -326,6 +358,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.SubReddit)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.Name = "MainForm"
         Me.Text = "MRG"

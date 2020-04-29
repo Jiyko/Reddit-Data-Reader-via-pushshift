@@ -24,7 +24,7 @@ Partial Class MainForm
     Private Sub InitializeComponent()
         Me.SubReddit = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.DoTheThingButton = New System.Windows.Forms.Button()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.MainText = New System.Windows.Forms.RichTextBox()
@@ -35,7 +35,7 @@ Partial Class MainForm
         Me.FileNameBox = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.NumberToCheck = New System.Windows.Forms.TextBox()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.SelectFileButton = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.minWordCount = New System.Windows.Forms.TextBox()
@@ -43,14 +43,21 @@ Partial Class MainForm
         Me.minPostNumber = New System.Windows.Forms.TextBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.TwoWeekCheck = New System.Windows.Forms.CheckBox()
-        Me.Setup = New System.Windows.Forms.Button()
+        Me.Initialise = New System.Windows.Forms.Button()
         Me.MilePick = New System.Windows.Forms.DateTimePicker()
         Me.MileStoneDate = New System.Windows.Forms.Button()
         Me.DateToSample = New System.Windows.Forms.DateTimePicker()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.DateListBox = New System.Windows.Forms.ListBox()
+        Me.InfoEndDate = New System.Windows.Forms.Label()
+        Me.InfoStartDate = New System.Windows.Forms.Label()
+        Me.InfoFileName = New System.Windows.Forms.Label()
+        Me.InfoSubReddit = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'SubReddit
@@ -72,23 +79,23 @@ Partial Class MainForm
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "SubReddit"
         '
-        'Button1
+        'DoTheThingButton
         '
-        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!)
-        Me.Button1.Location = New System.Drawing.Point(16, 532)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(652, 129)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "Do The Thing"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.DoTheThingButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!)
+        Me.DoTheThingButton.Location = New System.Drawing.Point(16, 532)
+        Me.DoTheThingButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.DoTheThingButton.Name = "DoTheThingButton"
+        Me.DoTheThingButton.Size = New System.Drawing.Size(969, 129)
+        Me.DoTheThingButton.TabIndex = 2
+        Me.DoTheThingButton.Text = "Do The Thing"
+        Me.DoTheThingButton.UseVisualStyleBackColor = True
         '
         'ProgressBar1
         '
         Me.ProgressBar1.Location = New System.Drawing.Point(16, 448)
         Me.ProgressBar1.Margin = New System.Windows.Forms.Padding(4)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(652, 28)
+        Me.ProgressBar1.Size = New System.Drawing.Size(969, 28)
         Me.ProgressBar1.TabIndex = 3
         '
         'Label2
@@ -109,7 +116,7 @@ Partial Class MainForm
         Me.MainText.Margin = New System.Windows.Forms.Padding(4)
         Me.MainText.Name = "MainText"
         Me.MainText.ReadOnly = True
-        Me.MainText.Size = New System.Drawing.Size(654, 160)
+        Me.MainText.Size = New System.Drawing.Size(969, 160)
         Me.MainText.TabIndex = 6
         Me.MainText.Text = ""
         '
@@ -180,15 +187,15 @@ Partial Class MainForm
         Me.NumberToCheck.TabIndex = 12
         Me.NumberToCheck.Text = "10"
         '
-        'Button2
+        'SelectFileButton
         '
-        Me.Button2.Location = New System.Drawing.Point(16, 96)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(4)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(377, 45)
-        Me.Button2.TabIndex = 14
-        Me.Button2.Text = "Select File Location"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.SelectFileButton.Location = New System.Drawing.Point(16, 96)
+        Me.SelectFileButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.SelectFileButton.Name = "SelectFileButton"
+        Me.SelectFileButton.Size = New System.Drawing.Size(377, 45)
+        Me.SelectFileButton.TabIndex = 14
+        Me.SelectFileButton.Text = "Select File Location"
+        Me.SelectFileButton.UseVisualStyleBackColor = True
         '
         'GroupBox1
         '
@@ -261,15 +268,16 @@ Partial Class MainForm
         Me.TwoWeekCheck.Text = "Create seperate fortnight files"
         Me.TwoWeekCheck.UseVisualStyleBackColor = True
         '
-        'Setup
+        'Initialise
         '
-        Me.Setup.Location = New System.Drawing.Point(16, 199)
-        Me.Setup.Margin = New System.Windows.Forms.Padding(4)
-        Me.Setup.Name = "Setup"
-        Me.Setup.Size = New System.Drawing.Size(377, 42)
-        Me.Setup.TabIndex = 18
-        Me.Setup.Text = "Initialise"
-        Me.Setup.UseVisualStyleBackColor = True
+        Me.Initialise.Enabled = False
+        Me.Initialise.Location = New System.Drawing.Point(16, 199)
+        Me.Initialise.Margin = New System.Windows.Forms.Padding(4)
+        Me.Initialise.Name = "Initialise"
+        Me.Initialise.Size = New System.Drawing.Size(377, 42)
+        Me.Initialise.TabIndex = 18
+        Me.Initialise.Text = "Initialise"
+        Me.Initialise.UseVisualStyleBackColor = True
         '
         'MilePick
         '
@@ -291,7 +299,7 @@ Partial Class MainForm
         '
         'DateToSample
         '
-        Me.DateToSample.Location = New System.Drawing.Point(220, 502)
+        Me.DateToSample.Location = New System.Drawing.Point(387, 501)
         Me.DateToSample.Margin = New System.Windows.Forms.Padding(4)
         Me.DateToSample.Name = "DateToSample"
         Me.DateToSample.Size = New System.Drawing.Size(265, 22)
@@ -301,7 +309,7 @@ Partial Class MainForm
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(244, 481)
+        Me.Label8.Location = New System.Drawing.Point(411, 480)
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(207, 17)
@@ -330,21 +338,86 @@ Partial Class MainForm
         Me.Label10.TabIndex = 25
         Me.Label10.Text = "2nd - Add Milestones"
         '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.DateListBox)
+        Me.GroupBox2.Controls.Add(Me.InfoEndDate)
+        Me.GroupBox2.Controls.Add(Me.InfoStartDate)
+        Me.GroupBox2.Controls.Add(Me.InfoFileName)
+        Me.GroupBox2.Controls.Add(Me.InfoSubReddit)
+        Me.GroupBox2.Location = New System.Drawing.Point(677, 10)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(308, 261)
+        Me.GroupBox2.TabIndex = 26
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "CurrentData"
+        '
+        'DateListBox
+        '
+        Me.DateListBox.FormattingEnabled = True
+        Me.DateListBox.ItemHeight = 16
+        Me.DateListBox.Location = New System.Drawing.Point(10, 160)
+        Me.DateListBox.Name = "DateListBox"
+        Me.DateListBox.ScrollAlwaysVisible = True
+        Me.DateListBox.Size = New System.Drawing.Size(292, 100)
+        Me.DateListBox.TabIndex = 6
+        '
+        'InfoEndDate
+        '
+        Me.InfoEndDate.AutoSize = True
+        Me.InfoEndDate.Location = New System.Drawing.Point(7, 78)
+        Me.InfoEndDate.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.InfoEndDate.Name = "InfoEndDate"
+        Me.InfoEndDate.Size = New System.Drawing.Size(136, 17)
+        Me.InfoEndDate.TabIndex = 5
+        Me.InfoEndDate.Text = "<<UNINITIALISED>>"
+        '
+        'InfoStartDate
+        '
+        Me.InfoStartDate.AutoSize = True
+        Me.InfoStartDate.Location = New System.Drawing.Point(7, 57)
+        Me.InfoStartDate.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.InfoStartDate.Name = "InfoStartDate"
+        Me.InfoStartDate.Size = New System.Drawing.Size(136, 17)
+        Me.InfoStartDate.TabIndex = 4
+        Me.InfoStartDate.Text = "<<UNINITIALISED>>"
+        '
+        'InfoFileName
+        '
+        Me.InfoFileName.AutoSize = True
+        Me.InfoFileName.Location = New System.Drawing.Point(7, 37)
+        Me.InfoFileName.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.InfoFileName.Name = "InfoFileName"
+        Me.InfoFileName.Size = New System.Drawing.Size(136, 17)
+        Me.InfoFileName.TabIndex = 3
+        Me.InfoFileName.Text = "<<UNINITIALISED>>"
+        '
+        'InfoSubReddit
+        '
+        Me.InfoSubReddit.AutoSize = True
+        Me.InfoSubReddit.Location = New System.Drawing.Point(7, 18)
+        Me.InfoSubReddit.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.InfoSubReddit.Name = "InfoSubReddit"
+        Me.InfoSubReddit.Size = New System.Drawing.Size(136, 17)
+        Me.InfoSubReddit.TabIndex = 2
+        Me.InfoSubReddit.Text = "<<UNINITIALISED>>"
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(681, 674)
+        Me.ClientSize = New System.Drawing.Size(996, 674)
+        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.DateToSample)
         Me.Controls.Add(Me.MileStoneDate)
         Me.Controls.Add(Me.MilePick)
-        Me.Controls.Add(Me.Setup)
+        Me.Controls.Add(Me.Initialise)
         Me.Controls.Add(Me.TwoWeekCheck)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.SelectFileButton)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.NumberToCheck)
         Me.Controls.Add(Me.Label4)
@@ -355,7 +428,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.MainText)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.ProgressBar1)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.DoTheThingButton)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.SubReddit)
         Me.Margin = New System.Windows.Forms.Padding(4)
@@ -364,6 +437,8 @@ Partial Class MainForm
         Me.Text = "MRG"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -371,7 +446,7 @@ Partial Class MainForm
 
     Friend WithEvents SubReddit As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents Button1 As Button
+    Friend WithEvents DoTheThingButton As Button
     Friend WithEvents ProgressBar1 As ProgressBar
     Friend WithEvents Label2 As Label
     Friend WithEvents MainText As RichTextBox
@@ -382,7 +457,7 @@ Partial Class MainForm
     Friend WithEvents FileNameBox As TextBox
     Friend WithEvents Label5 As Label
     Friend WithEvents NumberToCheck As TextBox
-    Friend WithEvents Button2 As Button
+    Friend WithEvents SelectFileButton As Button
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents Label6 As Label
     Friend WithEvents minPostNumber As TextBox
@@ -390,11 +465,17 @@ Partial Class MainForm
     Friend WithEvents minWordCount As TextBox
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
     Friend WithEvents TwoWeekCheck As CheckBox
-    Friend WithEvents Setup As Button
+    Friend WithEvents Initialise As Button
     Friend WithEvents MilePick As DateTimePicker
     Friend WithEvents MileStoneDate As Button
     Friend WithEvents DateToSample As DateTimePicker
     Friend WithEvents Label8 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents Label10 As Label
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents InfoEndDate As Label
+    Friend WithEvents InfoStartDate As Label
+    Friend WithEvents InfoFileName As Label
+    Friend WithEvents InfoSubReddit As Label
+    Friend WithEvents DateListBox As ListBox
 End Class

@@ -8,9 +8,9 @@ Public Class MainForm
 
     'Gloabl for the root folder
     Dim rootPath As String
-    Dim list As List(Of KeyValuePair(Of Double, String)) = New List(Of KeyValuePair(Of Double, String))
+    Dim listOfDates As List(Of KeyValuePair(Of Double, String)) = New List(Of KeyValuePair(Of Double, String))
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub DoTheThingButton_Click(sender As Object, e As EventArgs) Handles DoTheThingButton.Click
 
         'Check to see if the text is validated.... poorly
 
@@ -200,6 +200,7 @@ Public Class MainForm
             Dim k As Integer = 0
 
 
+
             Do While Not sLine Is Nothing
                 i += 1
                 sLine = objReader.ReadLine
@@ -293,12 +294,12 @@ Public Class MainForm
                                         Dim roundedTime As Double
                                         roundedTime = nearestRoundedDouble(bob.Key)
 
-                                        For Each boob In list.ToArray
+                                        For Each boob In listOfDates.ToArray
 
                                             If boob.Key = roundedTime Then
 
-                                                list.Remove(New KeyValuePair(Of Double, String)(roundedTime, boob.Value))
-                                                list.Add(New KeyValuePair(Of Double, String)(roundedTime, bob.Value + boob.Value))
+                                                listOfDates.Remove(New KeyValuePair(Of Double, String)(roundedTime, boob.Value))
+                                                listOfDates.Add(New KeyValuePair(Of Double, String)(roundedTime, bob.Value + boob.Value))
 
                                                 Exit For
 
@@ -328,15 +329,15 @@ Public Class MainForm
             statsFileW.Close()
             ProgressBar1.Value = 0
 
-            For Each bob In list.ToArray
+            For Each bob In listOfDates.ToArray
 
                 Dim UTCFilebyDate As New StreamWriter(rootPath + "\" + (bob.Key).ToString + ".txt", True)
                 UTCFilebyDate.Write((bob.Value).Replace(Chr(34), vbCrLf))
 
                 UTCFilebyDate.Close()
-                list.Remove(New KeyValuePair(Of Double, String)(bob.Key, bob.Value))
+                listOfDates.Remove(New KeyValuePair(Of Double, String)(bob.Key, bob.Value))
 
-                list.Add(New KeyValuePair(Of Double, String)(bob.Key, ""))
+                listOfDates.Add(New KeyValuePair(Of Double, String)(bob.Key, ""))
 
             Next
 
@@ -347,11 +348,6 @@ Public Class MainForm
             Next
             hashedUserListFile.Close()
             hashedUserList.Clear()
-
-
-
-
-
 
         Else
             MsgBox("Something broke")
@@ -448,15 +444,19 @@ Public Class MainForm
 
     End Function
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub SelectFileButton_Click(sender As Object, e As EventArgs) Handles SelectFileButton.Click
 
         If (FolderBrowserDialog1.ShowDialog() = DialogResult.OK) Then
             rootPath = FolderBrowserDialog1.SelectedPath
         End If
 
+        Initialise.Enabled = True
+
+        setupData()
+
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Setup.Click
+    Private Sub Initialise_Click(sender As Object, e As EventArgs) Handles Initialise.Click
 
         Dim startWindowUTC = (StartDate.Value() - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
         Dim endWindowUTC = (EndDate.Value() - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
@@ -466,41 +466,44 @@ Public Class MainForm
 
         Dim timeTracker = startWindowUTC
 
-        list.Add(New KeyValuePair(Of Double, String)(timeTracker - twoWeekUTC, ""))
+        listOfDates.Add(New KeyValuePair(Of Double, String)(timeTracker - twoWeekUTC, ""))
 
         Do While timeTracker < endWindowUTC
 
-            list.Add(New KeyValuePair(Of Double, String)(timeTracker, ""))
+            listOfDates.Add(New KeyValuePair(Of Double, String)(timeTracker, ""))
 
             If TwoWeekCheck.Checked Then
                 timeTracker = timeTracker + twoWeekUTC
             End If
 
         Loop
-        list.Add(New KeyValuePair(Of Double, String)(endWindowUTC, ""))
+        listOfDates.Add(New KeyValuePair(Of Double, String)(endWindowUTC, ""))
 
-        Setup.Enabled = False
+        Initialise.Enabled = False
+
+
+        setupData()
 
     End Sub
 
     Private Sub MileStoneDate_Click(sender As Object, e As EventArgs) Handles MileStoneDate.Click
         Dim newMileStone = (MilePick.Value() - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
-        list.Add(New KeyValuePair(Of Double, String)(newMileStone, ""))
+        listOfDates.Add(New KeyValuePair(Of Double, String)(newMileStone, ""))
 
         Dim doubleList As New List(Of Double)
 
-        For Each bob In list.ToArray
+        For Each bob In listOfDates.ToArray
             doubleList.Add(bob.Key)
         Next
 
-        list.Clear()
+        listOfDates.Clear()
 
 
         doubleList.Sort()
 
         For Each waka In doubleList
 
-            list.Add(New KeyValuePair(Of Double, String)(waka, ""))
+            listOfDates.Add(New KeyValuePair(Of Double, String)(waka, ""))
 
         Next
 
@@ -513,7 +516,7 @@ Public Class MainForm
 
         Dim doubleTracker As Double
         Dim lastDoubleTracker As Double
-        For Each bob In list.ToArray
+        For Each bob In listOfDates.ToArray
             doubleList.Add(bob.Key)
         Next
 
@@ -529,4 +532,26 @@ Public Class MainForm
 
         nearestRoundedDouble = doubleTracker
     End Function
+
+    Function setupData()
+        InfoSubReddit.Text = "SubReddit: " + SubReddit.Text
+        InfoFileName.Text = "FileNane: " + FileNameBox.Text
+
+
+        InfoStartDate.Text = "StartDate: " + StartDate.Value().ToString
+
+        InfoEndDate.Text = "EndDate: " + EndDate.Value().ToString
+
+        For Each dateToBeSeleted In listOfDates
+
+            Dim origin = New DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+
+
+            origin = origin.AddSeconds(dateToBeSeleted.Key)
+            DateListBox.Items.Add(origin.ToLocalTime)
+
+
+        Next
+    End Function
+
 End Class

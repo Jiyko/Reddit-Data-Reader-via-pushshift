@@ -307,7 +307,7 @@ Partial Class MainForm
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!)
-        Me.Label9.Location = New System.Drawing.Point(17, 11)
+        Me.Label9.Location = New System.Drawing.Point(15, 9)
         Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(233, 26)
@@ -447,7 +447,7 @@ Partial Class MainForm
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.Name = "MainForm"
-        Me.Text = "MRG"
+        Me.Text = "Reddit Data Reader"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)

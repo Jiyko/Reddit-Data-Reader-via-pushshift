@@ -45,7 +45,7 @@ Partial Class MainForm
         Me.Initialise = New System.Windows.Forms.Button()
         Me.MilePick = New System.Windows.Forms.DateTimePicker()
         Me.MileStoneDate = New System.Windows.Forms.Button()
-        Me.DateToSample = New System.Windows.Forms.DateTimePicker()
+        Me.DateToSampleStart = New System.Windows.Forms.DateTimePicker()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
@@ -57,8 +57,13 @@ Partial Class MainForm
         Me.InfoSubReddit = New System.Windows.Forms.Label()
         Me.OneWeekCheck = New System.Windows.Forms.CheckBox()
         Me.TwoWeekCheck = New System.Windows.Forms.CheckBox()
+        Me.DateToSampleEnd = New System.Windows.Forms.DateTimePicker()
+        Me.DayToCheckUserBar = New System.Windows.Forms.ProgressBar()
+        Me.NumberToBeSampled = New System.Windows.Forms.NumericUpDown()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        CType(Me.NumberToBeSampled, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SubReddit
@@ -83,7 +88,7 @@ Partial Class MainForm
         'DoTheThingButton
         '
         Me.DoTheThingButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!)
-        Me.DoTheThingButton.Location = New System.Drawing.Point(16, 532)
+        Me.DoTheThingButton.Location = New System.Drawing.Point(16, 594)
         Me.DoTheThingButton.Margin = New System.Windows.Forms.Padding(4)
         Me.DoTheThingButton.Name = "DoTheThingButton"
         Me.DoTheThingButton.Size = New System.Drawing.Size(969, 129)
@@ -113,7 +118,7 @@ Partial Class MainForm
         '
         Me.MainText.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MainText.Enabled = False
-        Me.MainText.Location = New System.Drawing.Point(16, 292)
+        Me.MainText.Location = New System.Drawing.Point(16, 293)
         Me.MainText.Margin = New System.Windows.Forms.Padding(4)
         Me.MainText.Name = "MainText"
         Me.MainText.ReadOnly = True
@@ -284,24 +289,24 @@ Partial Class MainForm
         Me.MileStoneDate.Text = "Add Milestone Date"
         Me.MileStoneDate.UseVisualStyleBackColor = True
         '
-        'DateToSample
+        'DateToSampleStart
         '
-        Me.DateToSample.Location = New System.Drawing.Point(387, 501)
-        Me.DateToSample.Margin = New System.Windows.Forms.Padding(4)
-        Me.DateToSample.Name = "DateToSample"
-        Me.DateToSample.Size = New System.Drawing.Size(265, 22)
-        Me.DateToSample.TabIndex = 21
-        Me.DateToSample.Value = New Date(2018, 11, 14, 0, 0, 0, 0)
+        Me.DateToSampleStart.Location = New System.Drawing.Point(23, 553)
+        Me.DateToSampleStart.Margin = New System.Windows.Forms.Padding(4)
+        Me.DateToSampleStart.Name = "DateToSampleStart"
+        Me.DateToSampleStart.Size = New System.Drawing.Size(265, 22)
+        Me.DateToSampleStart.TabIndex = 21
+        Me.DateToSampleStart.Value = New Date(2018, 11, 14, 0, 0, 0, 0)
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(411, 480)
+        Me.Label8.Location = New System.Drawing.Point(213, 531)
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(207, 17)
+        Me.Label8.Size = New System.Drawing.Size(193, 17)
         Me.Label8.TabIndex = 22
-        Me.Label8.Text = "Date to collect participants from"
+        Me.Label8.Text = "Participant Collection Window"
         '
         'Label9
         '
@@ -414,17 +419,57 @@ Partial Class MainForm
         Me.TwoWeekCheck.Text = "Create files at 2 week intervals"
         Me.TwoWeekCheck.UseVisualStyleBackColor = True
         '
+        'DateToSampleEnd
+        '
+        Me.DateToSampleEnd.Location = New System.Drawing.Point(309, 552)
+        Me.DateToSampleEnd.Margin = New System.Windows.Forms.Padding(4)
+        Me.DateToSampleEnd.Name = "DateToSampleEnd"
+        Me.DateToSampleEnd.Size = New System.Drawing.Size(265, 22)
+        Me.DateToSampleEnd.TabIndex = 28
+        Me.DateToSampleEnd.Value = New Date(2018, 11, 14, 0, 0, 0, 0)
+        '
+        'DayToCheckUserBar
+        '
+        Me.DayToCheckUserBar.Location = New System.Drawing.Point(16, 494)
+        Me.DayToCheckUserBar.Margin = New System.Windows.Forms.Padding(4)
+        Me.DayToCheckUserBar.Name = "DayToCheckUserBar"
+        Me.DayToCheckUserBar.Size = New System.Drawing.Size(969, 28)
+        Me.DayToCheckUserBar.TabIndex = 29
+        '
+        'NumberToBeSampled
+        '
+        Me.NumberToBeSampled.Location = New System.Drawing.Point(795, 555)
+        Me.NumberToBeSampled.Minimum = New Decimal(New Integer() {3, 0, 0, 0})
+        Me.NumberToBeSampled.Name = "NumberToBeSampled"
+        Me.NumberToBeSampled.Size = New System.Drawing.Size(184, 22)
+        Me.NumberToBeSampled.TabIndex = 30
+        Me.NumberToBeSampled.Value = New Decimal(New Integer() {3, 0, 0, 0})
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(792, 531)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(184, 17)
+        Me.Label11.TabIndex = 31
+        Me.Label11.Text = "NumberOfWindowsSampled"
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(996, 674)
+        Me.ClientSize = New System.Drawing.Size(996, 736)
+        Me.Controls.Add(Me.Label11)
+        Me.Controls.Add(Me.NumberToBeSampled)
+        Me.Controls.Add(Me.DayToCheckUserBar)
+        Me.Controls.Add(Me.DateToSampleEnd)
         Me.Controls.Add(Me.TwoWeekCheck)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label8)
-        Me.Controls.Add(Me.DateToSample)
+        Me.Controls.Add(Me.DateToSampleStart)
         Me.Controls.Add(Me.MileStoneDate)
         Me.Controls.Add(Me.MilePick)
         Me.Controls.Add(Me.Initialise)
@@ -452,6 +497,7 @@ Partial Class MainForm
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        CType(Me.NumberToBeSampled, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -480,7 +526,7 @@ Partial Class MainForm
     Friend WithEvents Initialise As Button
     Friend WithEvents MilePick As DateTimePicker
     Friend WithEvents MileStoneDate As Button
-    Friend WithEvents DateToSample As DateTimePicker
+    Friend WithEvents DateToSampleStart As DateTimePicker
     Friend WithEvents Label8 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents Label10 As Label
@@ -492,4 +538,8 @@ Partial Class MainForm
     Friend WithEvents DateListBox As ListBox
     Friend WithEvents OneWeekCheck As CheckBox
     Friend WithEvents TwoWeekCheck As CheckBox
+    Friend WithEvents DateToSampleEnd As DateTimePicker
+    Friend WithEvents DayToCheckUserBar As ProgressBar
+    Friend WithEvents NumberToBeSampled As NumericUpDown
+    Friend WithEvents Label11 As Label
 End Class

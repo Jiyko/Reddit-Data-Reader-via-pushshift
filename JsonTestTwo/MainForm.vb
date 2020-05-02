@@ -10,6 +10,8 @@ Public Class MainForm
     Dim rootPath As String
     Dim listOfDates As List(Of KeyValuePair(Of Double, String)) = New List(Of KeyValuePair(Of Double, String))
     Dim duration As Double
+    Dim rateLimit = 1000
+
     Private Sub DoTheThingButton_Click(sender As Object, e As EventArgs) Handles DoTheThingButton.Click
 
         'Check to see if the text is validated.... poorly
@@ -40,312 +42,346 @@ Public Class MainForm
             Dim startWindowUTC = (StartDate.Value() - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
             Dim endWindowUTC = (EndDate.Value() - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
 
+            Dim datesToPullUserInfor As List(Of DateTime) = New List(Of DateTime)
 
-            Dim hashedUserList As New List(Of String)
-            Dim nameFile As System.IO.StreamReader
 
-            Try
-                'Trys to open the hashnamedFiles
+            Dim startSampleWindowUTC = (DateToSampleStart.Value() - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
+            Dim endSampleWindowUTC = (DateToSampleEnd.Value() - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
 
-                If My.Computer.FileSystem.FileExists(rootPath + "\" + FileNameBox.Text() + "hashedNames.txt") Then
-                    'If the file exists, iterate over it and add the content to the hashedUserList 
+            Dim numberOfSets = NumberToBeSampled.Value
+            Dim dateDif = endSampleWindowUTC - startSampleWindowUTC
+            Dim averageDistanceBetweenQueries = dateDif / numberOfSets
 
-                    nameFile = My.Computer.FileSystem.OpenTextFileReader(rootPath + "\" + FileNameBox.Text() + "hashedNames.txt")
+            DayToCheckUserBar.Maximum = CInt(numberOfSets)
+            DayToCheckUserBar.Value = 0
 
-                    Dim nameTracker As String
-                    nameTracker = nameFile.ReadLine
+            For index As Integer = 1 To numberOfSets
 
-                    Do While Not nameTracker Is Nothing
-                        hashedUserList.Add(nameTracker)
+                Dim origin = New DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                origin = origin.AddSeconds(startSampleWindowUTC + (averageDistanceBetweenQueries * index))
+                datesToPullUserInfor.Add(origin)
+            Next
+
+            For Each samplingDate In datesToPullUserInfor
+
+
+
+
+                Dim hashedUserList As New List(Of String)
+                Dim nameFile As System.IO.StreamReader
+
+                Try
+                    'Trys to open the hashnamedFiles
+
+                    If My.Computer.FileSystem.FileExists(rootPath + "\" + FileNameBox.Text() + "hashedNames.txt") Then
+                        'If the file exists, iterate over it and add the content to the hashedUserList 
+
+                        nameFile = My.Computer.FileSystem.OpenTextFileReader(rootPath + "\" + FileNameBox.Text() + "hashedNames.txt")
+
+                        Dim nameTracker As String
                         nameTracker = nameFile.ReadLine
-                    Loop
 
-                    nameFile.Close()
+                        Do While Not nameTracker Is Nothing
+                            hashedUserList.Add(nameTracker)
+                            nameTracker = nameFile.ReadLine
+                        Loop
 
-                Else
-                    'If the file does not exists, create it 
+                        nameFile.Close()
 
-                    Dim hashedUserListFileCreate As New StreamWriter(rootPath + "\" + FileNameBox.Text() + "hashedNames.txt", True)
-                    hashedUserListFileCreate.Close()
+                    Else
+                        'If the file does not exists, create it 
+
+                        Dim hashedUserListFileCreate As New StreamWriter(rootPath + "\" + FileNameBox.Text() + "hashedNames.txt", True)
+                        hashedUserListFileCreate.Close()
+
+                    End If
+
+                Catch exTwo As Exception
+
+                End Try
+
+                Dim tempList As List(Of KeyValuePair(Of Double, String)) = New List(Of KeyValuePair(Of Double, String))
+
+                Dim timeTracker = startWindowUTC
+
+                Dim files() As String = IO.Directory.GetFiles(rootPath + "\")
+
+                Dim bodyTracker As String
+
+                Dim FinalStartDate As String
+                Dim FinalEndDate As String
+                Dim FinalSize As String
+                Dim FinalTags As String
+
+                Dim validLine As Boolean
+
+
+                Dim FinalBodyTags As String
+
+                Dim ValidLines As Int64
+                Dim TotalLines As Int64
+                Dim ValidPoster As Int64
+                Dim TotalPoster As Int64
+
+                'Declare the IO Stuff
+                Dim file As System.IO.StreamWriter
+                file = My.Computer.FileSystem.OpenTextFileWriter(rootPath + "\" + FileNameBox.Text() + ".txt", True)
+
+
+
+                If My.Computer.FileSystem.FileExists(rootPath + "\" + FileNameBox.Text() + "Stats.txt") Then
+                    'If the stats file exists pull the data
+
+                    'Get the latest stats
+                    Dim statsFile As System.IO.StreamReader
+                    statsFile = My.Computer.FileSystem.OpenTextFileReader(rootPath + "\" + FileNameBox.Text() + "Stats.txt")
+                    ValidLines = Convert.ToInt32(statsFile.ReadLine())
+                    TotalLines = Convert.ToInt32(statsFile.ReadLine())
+                    ValidPoster = Convert.ToInt32(statsFile.ReadLine())
+                    TotalPoster = Convert.ToInt32(statsFile.ReadLine())
+
+                    statsFile.Close()
 
                 End If
 
-            Catch exTwo As Exception
+                Dim statsFileW As System.IO.StreamWriter
+                statsFileW = My.Computer.FileSystem.OpenTextFileWriter(rootPath + "\" + FileNameBox.Text() + "Stats.txt", False)
 
-            End Try
+                sURL = "https://api.pushshift.io/reddit/search/comment/?subreddit="
+                sURL = sURL + (SubReddit.Text())
 
-            Dim tempList As List(Of KeyValuePair(Of Double, String)) = New List(Of KeyValuePair(Of Double, String))
 
-            Dim timeTracker = startWindowUTC
+                'Start Date Junk
+                sDate = StartDate.Value()
+                sMonth = (sDate.Month).ToString
+                sDay = (sDate.Day).ToString
 
-            Dim files() As String = IO.Directory.GetFiles(rootPath + "\")
+                If (sMonth.Length < 2) Then
+                    sMonth = "0" + sMonth
+                End If
 
-            Dim bodyTracker As String
+                If (sDay.Length < 2) Then
+                    sDay = "0" + sDay
+                End If
 
-            Dim FinalStartDate As String
-            Dim FinalEndDate As String
-            Dim FinalSize As String
-            Dim FinalTags As String
 
-            Dim validLine As Boolean
+                FinalStartDate = "&after=" + (sDate.Year).ToString + "-" + sMonth + "-" + sDay
 
 
-            Dim FinalBodyTags As String
+                'Start Date Junk
+                eDate = EndDate.Value()
+                eMonth = (eDate.Month).ToString
+                eDay = (eDate.Day).ToString
 
-            Dim ValidLines As Int64
-            Dim TotalLines As Int64
-            Dim ValidPoster As Int64
-            Dim TotalPoster As Int64
+                If (eMonth.Length < 2) Then
+                    eMonth = "0" + eMonth
+                End If
 
-            'Declare the IO Stuff
-            Dim file As System.IO.StreamWriter
-            file = My.Computer.FileSystem.OpenTextFileWriter(rootPath + "\" + FileNameBox.Text() + ".txt", True)
+                If (eDay.Length < 2) Then
+                    eDay = "0" + eDay
+                End If
 
 
+                FinalEndDate = "&before=" + (eDate.Year).ToString + "-" + eMonth + "-" + eDay
 
-            If My.Computer.FileSystem.FileExists(rootPath + "\" + FileNameBox.Text() + "Stats.txt") Then
-                'If the stats file exists pull the data
+                'Sample Date Junk
+                sampleDate = samplingDate
+                sampleMonth = (sampleDate.Month).ToString
+                sampleDay = (sampleDate.Day).ToString
 
-                'Get the latest stats
-                Dim statsFile As System.IO.StreamReader
-                statsFile = My.Computer.FileSystem.OpenTextFileReader(rootPath + "\" + FileNameBox.Text() + "Stats.txt")
-                ValidLines = Convert.ToInt32(statsFile.ReadLine())
-                TotalLines = Convert.ToInt32(statsFile.ReadLine())
-                ValidPoster = Convert.ToInt32(statsFile.ReadLine())
-                TotalPoster = Convert.ToInt32(statsFile.ReadLine())
+                If (sampleMonth.Length < 2) Then
+                    sampleMonth = "0" + sampleMonth
+                End If
 
-                statsFile.Close()
+                If (sampleDay.Length < 2) Then
+                    sampleDay = "0" + sampleDay
+                End If
 
-            End If
+                SampleDateFinal = "&after=" + (sampleDate.Year).ToString + "-" + sampleMonth + "-" + sampleDay
 
-            Dim statsFileW As System.IO.StreamWriter
-            statsFileW = My.Computer.FileSystem.OpenTextFileWriter(rootPath + "\" + FileNameBox.Text() + "Stats.txt", False)
+                ProgressBar1.Maximum = CInt(NumberToCheck.Text())
+                ProgressBar1.Value = 0
 
-            sURL = "https://api.pushshift.io/reddit/search/comment/?subreddit="
-            sURL = sURL + (SubReddit.Text())
 
+                FinalSize = "&size=" + NumberToCheck.Text()
+                FinalTags = "&filter=author,score"
 
-            'Start Date Junk
-            sDate = StartDate.Value()
-            sMonth = (sDate.Month).ToString
-            sDay = (sDate.Day).ToString
+                FinalBodyTags = "&filter=body"
 
-            If (sMonth.Length < 2) Then
-                sMonth = "0" + sMonth
-            End If
+                FirstRunURL = sURL + SampleDateFinal + FinalEndDate + FinalSize + FinalTags
+                SecondRunURL = sURL + FinalStartDate + FinalEndDate + FinalSize + "&filter=body,created_utc&&author="
 
-            If (sDay.Length < 2) Then
-                sDay = "0" + sDay
-            End If
+                Dim objReader = OpenStream(FirstRunURL)
 
 
-            FinalStartDate = "&after=" + (sDate.Year).ToString + "-" + sMonth + "-" + sDay
+                Dim sLine As String = ""
+                Dim i As Integer = 0
 
+                Dim sInnerLine As String = ""
+                Dim j As Integer = 0
+                Dim k As Integer = 0
 
-            'Start Date Junk
-            eDate = EndDate.Value()
-            eMonth = (eDate.Month).ToString
-            eDay = (eDate.Day).ToString
 
-            If (eMonth.Length < 2) Then
-                eMonth = "0" + eMonth
-            End If
 
-            If (eDay.Length < 2) Then
-                eDay = "0" + eDay
-            End If
+                Do While Not sLine Is Nothing
+                    i += 1
+                    sLine = objReader.ReadLine
+                    If Not sLine Is Nothing Then
 
+                        If sLine.Contains("author") Then
 
-            FinalEndDate = "&before=" + (eDate.Year).ToString + "-" + eMonth + "-" + eDay
+                            Console.WriteLine("{0}:{1}", i, sLine)
 
-            'Sample Date Junk
-            sampleDate = DateToSample.Value()
-            sampleMonth = (sampleDate.Month).ToString
-            sampleDay = (sampleDate.Day).ToString
+                            sLine = sLine.Remove((sLine.Length) - 2)
+                            sLine = sLine.Substring(23)
 
-            If (sampleMonth.Length < 2) Then
-                sampleMonth = "0" + sampleMonth
-            End If
+                            Console.WriteLine(sLine)
 
-            If (sampleDay.Length < 2) Then
-                sampleDay = "0" + sampleDay
-            End If
+                            sLine.GetHashCode()
+                            If Not hashedUserList.Contains(sLine.GetHashCode()) Then
 
-            SampleDateFinal = "&after=" + (sampleDate.Year).ToString + "-" + sampleMonth + "-" + sampleDay
 
-            ProgressBar1.Maximum = CInt(NumberToCheck.Text())
+                                Final = SecondRunURL + sLine
 
-            FinalSize = "&size=" + NumberToCheck.Text()
-            FinalTags = "&filter=author,score"
 
-            FinalBodyTags = "&filter=body"
+                                TotalPoster = TotalPoster + 1
+                                ProgressBar1.Value = ProgressBar1.Value + 1
 
-            FirstRunURL = sURL + SampleDateFinal + FinalEndDate + FinalSize + FinalTags
-            SecondRunURL = sURL + FinalStartDate + FinalEndDate + FinalSize + "&filter=body,created_utc&&author="
+                                Dim objInnerReader = OpenStream(Final)
 
-            Dim objReader = OpenStream(FirstRunURL)
+                                sInnerLine = ""
+                                j = 0
+                                k = 0
 
-
-            Dim sLine As String = ""
-            Dim i As Integer = 0
-
-            Dim sInnerLine As String = ""
-            Dim j As Integer = 0
-            Dim k As Integer = 0
-
-
-
-            Do While Not sLine Is Nothing
-                i += 1
-                sLine = objReader.ReadLine
-                If Not sLine Is Nothing Then
-
-                    If sLine.Contains("author") Then
-
-                        Console.WriteLine("{0}:{1}", i, sLine)
-
-                        sLine = sLine.Remove((sLine.Length) - 2)
-                        sLine = sLine.Substring(23)
-
-                        Console.WriteLine(sLine)
-
-                        sLine.GetHashCode()
-                        If Not hashedUserList.Contains(sLine.GetHashCode()) Then
-
-
-                            Final = SecondRunURL + sLine
-
-
-                            TotalPoster = TotalPoster + 1
-                            ProgressBar1.Value = ProgressBar1.Value + 1
-
-                            Dim objInnerReader = OpenStream(Final)
-
-                            sInnerLine = ""
-                            j = 0
-                            k = 0
-
-                            bodyTracker = ""
-
-                            sInnerLine = objInnerReader.ReadLine
-
-                            Do While Not sInnerLine Is Nothing
-
-                                If Not sInnerLine.Equals("") Then
-                                    j += 1
-
-                                    'check to see if the line contains any words from the filter list
-                                    validLine = True
-
-                                    For Each bob In filterWords
-                                        If sInnerLine.Contains(bob) Then
-
-                                            validLine = False
-
-                                        End If
-                                    Next
-
-                                    'check to see if the line contains any words from the filter list
-                                    If validLine Then
-                                        If sInnerLine.Contains("body") Then
-
-                                            sInnerLine = sInnerLine.Remove((sInnerLine.Length) - 1)
-                                            sInnerLine = sInnerLine.Substring(21)
-                                            sInnerLine.Trim()
-
-                                            bodyTracker = bodyTracker + vbCrLf + sInnerLine
-
-                                            TotalLines = TotalLines + 1
-                                            k += 1
-
-                                            Dim sInnerLineDate As String = objInnerReader.ReadLine
-
-                                            sInnerLineDate = sInnerLineDate.Substring(27)
-
-                                            Dim dataAsDouble As Double
-                                            Double.TryParse(sInnerLineDate, dataAsDouble)
-
-                                            tempList.Add(New KeyValuePair(Of Double, String)(dataAsDouble, sInnerLine))
-
-
-                                        End If
-
-                                    End If
-                                End If
+                                bodyTracker = ""
 
                                 sInnerLine = objInnerReader.ReadLine
 
-                            Loop
+                                Do While Not sInnerLine Is Nothing
 
-                            hashedUserList.Add(sLine.GetHashCode())
+                                    If Not sInnerLine.Equals("") Then
+                                        j += 1
 
-                            'checks the user validity 
-                            If k >= Convert.ToInt32(minPostNumber.Text) Then
-                                If bodyTracker.Split(" ").Length + 1 >= Convert.ToInt32(minWordCount.Text) Then
+                                        'check to see if the line contains any words from the filter list
+                                        validLine = True
 
-                                    For Each bob In tempList.ToArray
+                                        For Each bob In filterWords
+                                            If sInnerLine.Contains(bob) Then
 
-                                        Dim roundedTime As Double
-                                        roundedTime = nearestRoundedDouble(bob.Key)
+                                                validLine = False
 
-                                        For Each boob In listOfDates.ToArray
+                                            End If
+                                        Next
 
-                                            If boob.Key = roundedTime Then
+                                        'check to see if the line contains any words from the filter list
+                                        If validLine Then
+                                            If sInnerLine.Contains("body") Then
 
-                                                listOfDates.Remove(New KeyValuePair(Of Double, String)(roundedTime, boob.Value))
-                                                listOfDates.Add(New KeyValuePair(Of Double, String)(roundedTime, bob.Value + boob.Value))
+                                                sInnerLine = sInnerLine.Remove((sInnerLine.Length) - 1)
+                                                sInnerLine = sInnerLine.Substring(21)
+                                                sInnerLine.Trim()
 
-                                                Exit For
+                                                bodyTracker = bodyTracker + vbCrLf + sInnerLine
+
+                                                TotalLines = TotalLines + 1
+                                                k += 1
+
+                                                Dim sInnerLineDate As String = objInnerReader.ReadLine
+
+                                                sInnerLineDate = sInnerLineDate.Substring(27)
+
+                                                Dim dataAsDouble As Double
+                                                Double.TryParse(sInnerLineDate, dataAsDouble)
+
+                                                tempList.Add(New KeyValuePair(Of Double, String)(dataAsDouble, sInnerLine))
+
 
                                             End If
 
+                                        End If
+                                    End If
+
+                                    sInnerLine = objInnerReader.ReadLine
+
+                                Loop
+
+                                hashedUserList.Add(sLine.GetHashCode())
+
+                                'checks the user validity 
+                                If k >= Convert.ToInt32(minPostNumber.Text) Then
+                                    If bodyTracker.Split(" ").Length + 1 >= Convert.ToInt32(minWordCount.Text) Then
+
+                                        For Each bob In tempList.ToArray
+
+                                            Dim roundedTime As Double
+                                            roundedTime = nearestRoundedDouble(bob.Key)
+
+                                            For Each boob In listOfDates.ToArray
+
+                                                If boob.Key = roundedTime Then
+
+                                                    listOfDates.Remove(New KeyValuePair(Of Double, String)(roundedTime, boob.Value))
+                                                    listOfDates.Add(New KeyValuePair(Of Double, String)(roundedTime, bob.Value + boob.Value))
+
+                                                    Exit For
+
+                                                End If
+
+                                            Next
+
                                         Next
-
-                                    Next
-                                    ValidPoster = ValidPoster + 1
-                                    ValidLines = ValidLines + k
+                                        ValidPoster = ValidPoster + 1
+                                        ValidLines = ValidLines + k
+                                    End If
                                 End If
+                                tempList.Clear()
+
                             End If
-                            tempList.Clear()
-
                         End If
+
                     End If
+                Loop
 
-                End If
-            Loop
+                statsFileW.WriteLine(ValidLines)
+                statsFileW.WriteLine(TotalLines)
+                statsFileW.WriteLine(ValidPoster)
+                statsFileW.WriteLine(TotalPoster)
 
-            statsFileW.WriteLine(ValidLines)
-            statsFileW.WriteLine(TotalLines)
-            statsFileW.WriteLine(ValidPoster)
-            statsFileW.WriteLine(TotalPoster)
+                file.Close()
+                statsFileW.Close()
+                ProgressBar1.Value = ProgressBar1.Maximum
 
-            file.Close()
-            statsFileW.Close()
-            ProgressBar1.Value = 0
 
-            For Each bob In listOfDates.ToArray
+                For Each bob In listOfDates.ToArray
 
-                Dim UTCFilebyDate As New StreamWriter(rootPath + "\" + (bob.Key).ToString + ".txt", True)
-                UTCFilebyDate.Write((bob.Value).Replace(Chr(34), vbCrLf))
+                    Dim UTCFilebyDate As New StreamWriter(rootPath + "\" + (bob.Key).ToString + ".txt", True)
+                    UTCFilebyDate.Write((bob.Value).Replace(Chr(34), vbCrLf))
 
-                UTCFilebyDate.Close()
-                listOfDates.Remove(New KeyValuePair(Of Double, String)(bob.Key, bob.Value))
+                    UTCFilebyDate.Close()
+                    listOfDates.Remove(New KeyValuePair(Of Double, String)(bob.Key, bob.Value))
 
-                listOfDates.Add(New KeyValuePair(Of Double, String)(bob.Key, ""))
+                    listOfDates.Add(New KeyValuePair(Of Double, String)(bob.Key, ""))
 
+                Next
+
+
+                Dim hashedUserListFile As New StreamWriter(rootPath + "\" + FileNameBox.Text() + "hashedNames.txt", False)
+                For Each nameH In hashedUserList
+                    hashedUserListFile.Write(nameH + vbCrLf)
+                Next
+                hashedUserListFile.Close()
+                hashedUserList.Clear()
+
+
+
+                DayToCheckUserBar.Value = DayToCheckUserBar.Value + 1
             Next
-
-
-            Dim hashedUserListFile As New StreamWriter(rootPath + "\" + FileNameBox.Text() + "hashedNames.txt", False)
-            For Each nameH In hashedUserList
-                hashedUserListFile.Write(nameH + vbCrLf)
-            Next
-            hashedUserListFile.Close()
-            hashedUserList.Clear()
 
         Else
             MsgBox("Something broke")
         End If
+
+
     End Sub
 
     Function DataIsValid() As Boolean
@@ -413,6 +449,7 @@ Public Class MainForm
 
     Function OpenStream(ByVal wantedURI As String) As StreamReader
 
+        Threading.Thread.Sleep(rateLimit)
         Try
             Convert.ToInt32(minPostNumber.Text)
 
@@ -564,7 +601,6 @@ Public Class MainForm
             OneWeekCheck.Checked = False
         End If
 
-
     End Sub
 
     Private Sub OneWeekCheck_CheckedChanged(sender As Object, e As EventArgs) Handles OneWeekCheck.CheckedChanged
@@ -572,4 +608,15 @@ Public Class MainForm
             TwoWeekCheck.Checked = False
         End If
     End Sub
+
+    Private Sub StartDate_ValueChanged(sender As Object, e As EventArgs) Handles StartDate.ValueChanged
+        'When the start date of a range is updated change the date that users are sampled to the same 
+        DateToSampleStart.Value = StartDate.Value
+    End Sub
+
+    Private Sub EndDate_ValueChanged(sender As Object, e As EventArgs) Handles EndDate.ValueChanged
+        'When the end date of a range is updated change the date that users are sampled to the same 
+        DateToSampleEnd.Value = EndDate.Value
+    End Sub
+
 End Class

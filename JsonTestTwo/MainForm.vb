@@ -9,7 +9,7 @@ Public Class MainForm
     'Gloabl for the root folder
     Dim rootPath As String
     Dim listOfDates As List(Of KeyValuePair(Of Double, String)) = New List(Of KeyValuePair(Of Double, String))
-
+    Dim duration As Double
     Private Sub DoTheThingButton_Click(sender As Object, e As EventArgs) Handles DoTheThingButton.Click
 
         'Check to see if the text is validated.... poorly
@@ -73,12 +73,6 @@ Public Class MainForm
             Catch exTwo As Exception
 
             End Try
-
-            Dim twoWeekUTC As Double
-            twoWeekUTC = 1209600
-            Dim oneWeekUTC As Double
-            oneWeekUTC = 604800
-
 
             Dim tempList As List(Of KeyValuePair(Of Double, String)) = New List(Of KeyValuePair(Of Double, String))
 
@@ -461,20 +455,31 @@ Public Class MainForm
         Dim startWindowUTC = (StartDate.Value() - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
         Dim endWindowUTC = (EndDate.Value() - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds
 
+        Dim oneWeekUTC As Double
+        oneWeekUTC = 604800
+
         Dim twoWeekUTC As Double
         twoWeekUTC = 1209600
 
+
+        Dim usedTimeDifference As Double
+
+        If OneWeekCheck.Checked Then
+            usedTimeDifference = oneWeekUTC
+        Else
+            usedTimeDifference = twoWeekUTC
+        End If
+
         Dim timeTracker = startWindowUTC
 
-        listOfDates.Add(New KeyValuePair(Of Double, String)(timeTracker - twoWeekUTC, ""))
+        listOfDates.Add(New KeyValuePair(Of Double, String)(timeTracker - usedTimeDifference, ""))
 
         Do While timeTracker < endWindowUTC
 
             listOfDates.Add(New KeyValuePair(Of Double, String)(timeTracker, ""))
 
-            If TwoWeekCheck.Checked Then
-                timeTracker = timeTracker + twoWeekUTC
-            End If
+            timeTracker = timeTracker + usedTimeDifference
+
 
         Loop
         listOfDates.Add(New KeyValuePair(Of Double, String)(endWindowUTC, ""))
@@ -554,4 +559,17 @@ Public Class MainForm
         Next
     End Function
 
+    Private Sub TwoWeekCheck_CheckedChanged(sender As Object, e As EventArgs) Handles TwoWeekCheck.CheckedChanged
+        If TwoWeekCheck.Checked Then
+            OneWeekCheck.Checked = False
+        End If
+
+
+    End Sub
+
+    Private Sub OneWeekCheck_CheckedChanged(sender As Object, e As EventArgs) Handles OneWeekCheck.CheckedChanged
+        If OneWeekCheck.Checked Then
+            TwoWeekCheck.Checked = False
+        End If
+    End Sub
 End Class

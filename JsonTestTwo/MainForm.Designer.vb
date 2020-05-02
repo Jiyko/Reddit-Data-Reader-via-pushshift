@@ -42,7 +42,6 @@ Partial Class MainForm
         Me.Label6 = New System.Windows.Forms.Label()
         Me.minPostNumber = New System.Windows.Forms.TextBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.TwoWeekCheck = New System.Windows.Forms.CheckBox()
         Me.Initialise = New System.Windows.Forms.Button()
         Me.MilePick = New System.Windows.Forms.DateTimePicker()
         Me.MileStoneDate = New System.Windows.Forms.Button()
@@ -56,6 +55,8 @@ Partial Class MainForm
         Me.InfoStartDate = New System.Windows.Forms.Label()
         Me.InfoFileName = New System.Windows.Forms.Label()
         Me.InfoSubReddit = New System.Windows.Forms.Label()
+        Me.OneWeekCheck = New System.Windows.Forms.CheckBox()
+        Me.TwoWeekCheck = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -101,7 +102,7 @@ Partial Class MainForm
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(16, 148)
+        Me.Label2.Location = New System.Drawing.Point(13, 145)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(72, 17)
@@ -112,18 +113,18 @@ Partial Class MainForm
         '
         Me.MainText.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MainText.Enabled = False
-        Me.MainText.Location = New System.Drawing.Point(16, 279)
+        Me.MainText.Location = New System.Drawing.Point(16, 292)
         Me.MainText.Margin = New System.Windows.Forms.Padding(4)
         Me.MainText.Name = "MainText"
         Me.MainText.ReadOnly = True
-        Me.MainText.Size = New System.Drawing.Size(969, 160)
+        Me.MainText.Size = New System.Drawing.Size(969, 147)
         Me.MainText.TabIndex = 6
         Me.MainText.Text = ""
         '
         'StartDate
         '
         Me.StartDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.StartDate.Location = New System.Drawing.Point(16, 170)
+        Me.StartDate.Location = New System.Drawing.Point(16, 162)
         Me.StartDate.Margin = New System.Windows.Forms.Padding(4)
         Me.StartDate.Name = "StartDate"
         Me.StartDate.Size = New System.Drawing.Size(132, 22)
@@ -143,7 +144,7 @@ Partial Class MainForm
         'EndDate
         '
         Me.EndDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.EndDate.Location = New System.Drawing.Point(265, 170)
+        Me.EndDate.Location = New System.Drawing.Point(265, 162)
         Me.EndDate.Margin = New System.Windows.Forms.Padding(4)
         Me.EndDate.Name = "EndDate"
         Me.EndDate.Size = New System.Drawing.Size(128, 22)
@@ -254,24 +255,10 @@ Partial Class MainForm
         '
         Me.FolderBrowserDialog1.SelectedPath = "D:\RedditRips\Test"
         '
-        'TwoWeekCheck
-        '
-        Me.TwoWeekCheck.AutoSize = True
-        Me.TwoWeekCheck.Checked = True
-        Me.TwoWeekCheck.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.TwoWeekCheck.Enabled = False
-        Me.TwoWeekCheck.Location = New System.Drawing.Point(16, 250)
-        Me.TwoWeekCheck.Margin = New System.Windows.Forms.Padding(4)
-        Me.TwoWeekCheck.Name = "TwoWeekCheck"
-        Me.TwoWeekCheck.Size = New System.Drawing.Size(217, 21)
-        Me.TwoWeekCheck.TabIndex = 17
-        Me.TwoWeekCheck.Text = "Create seperate fortnight files"
-        Me.TwoWeekCheck.UseVisualStyleBackColor = True
-        '
         'Initialise
         '
         Me.Initialise.Enabled = False
-        Me.Initialise.Location = New System.Drawing.Point(16, 199)
+        Me.Initialise.Location = New System.Drawing.Point(16, 188)
         Me.Initialise.Margin = New System.Windows.Forms.Padding(4)
         Me.Initialise.Name = "Initialise"
         Me.Initialise.Size = New System.Drawing.Size(377, 42)
@@ -331,7 +318,7 @@ Partial Class MainForm
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!)
-        Me.Label10.Location = New System.Drawing.Point(430, 10)
+        Me.Label10.Location = New System.Drawing.Point(411, 9)
         Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(216, 26)
@@ -402,11 +389,37 @@ Partial Class MainForm
         Me.InfoSubReddit.TabIndex = 2
         Me.InfoSubReddit.Text = "<<UNINITIALISED>>"
         '
+        'OneWeekCheck
+        '
+        Me.OneWeekCheck.AutoSize = True
+        Me.OneWeekCheck.Location = New System.Drawing.Point(16, 263)
+        Me.OneWeekCheck.Margin = New System.Windows.Forms.Padding(4)
+        Me.OneWeekCheck.Name = "OneWeekCheck"
+        Me.OneWeekCheck.Size = New System.Drawing.Size(222, 21)
+        Me.OneWeekCheck.TabIndex = 17
+        Me.OneWeekCheck.Text = "Create files at 1 week intervals"
+        Me.OneWeekCheck.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.OneWeekCheck.UseVisualStyleBackColor = True
+        '
+        'TwoWeekCheck
+        '
+        Me.TwoWeekCheck.AutoSize = True
+        Me.TwoWeekCheck.Checked = True
+        Me.TwoWeekCheck.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.TwoWeekCheck.Location = New System.Drawing.Point(16, 234)
+        Me.TwoWeekCheck.Margin = New System.Windows.Forms.Padding(4)
+        Me.TwoWeekCheck.Name = "TwoWeekCheck"
+        Me.TwoWeekCheck.Size = New System.Drawing.Size(222, 21)
+        Me.TwoWeekCheck.TabIndex = 27
+        Me.TwoWeekCheck.Text = "Create files at 2 week intervals"
+        Me.TwoWeekCheck.UseVisualStyleBackColor = True
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(996, 674)
+        Me.Controls.Add(Me.TwoWeekCheck)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label9)
@@ -415,7 +428,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.MileStoneDate)
         Me.Controls.Add(Me.MilePick)
         Me.Controls.Add(Me.Initialise)
-        Me.Controls.Add(Me.TwoWeekCheck)
+        Me.Controls.Add(Me.OneWeekCheck)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.SelectFileButton)
         Me.Controls.Add(Me.Label5)
@@ -464,7 +477,6 @@ Partial Class MainForm
     Friend WithEvents Label7 As Label
     Friend WithEvents minWordCount As TextBox
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
-    Friend WithEvents TwoWeekCheck As CheckBox
     Friend WithEvents Initialise As Button
     Friend WithEvents MilePick As DateTimePicker
     Friend WithEvents MileStoneDate As Button
@@ -478,4 +490,6 @@ Partial Class MainForm
     Friend WithEvents InfoFileName As Label
     Friend WithEvents InfoSubReddit As Label
     Friend WithEvents DateListBox As ListBox
+    Friend WithEvents OneWeekCheck As CheckBox
+    Friend WithEvents TwoWeekCheck As CheckBox
 End Class
